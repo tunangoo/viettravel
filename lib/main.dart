@@ -42,6 +42,7 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         appBar: AppBar(
           title: Text(MyApp.title),
+          toolbarHeight: 0.0,
         ),
         body: IndexedStack(
           index: _currentIndex,
