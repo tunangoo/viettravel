@@ -6,6 +6,8 @@ import 'package:viettravel/screen/favorite_screen.dart';
 import 'package:viettravel/screen/home_screen.dart';
 import 'package:viettravel/screen/profile_screen.dart';
 import 'package:viettravel/screen/search_screen.dart';
+import 'package:viettravel/screen/login_screen.dart';
+import 'package:viettravel/constant/app_constant.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -15,7 +17,6 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  static final title = 'VietTravel';
 
   @override
   _MyAppState createState() => _MyAppState();
@@ -34,14 +35,14 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: MyApp.title,
+      title: appName,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: Text(MyApp.title),
+          title: Text(appName),
           toolbarHeight: 0.0,
         ),
         body: IndexedStack(
