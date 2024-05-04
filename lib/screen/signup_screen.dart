@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:viettravel/custom_widget/custom_text_field.dart';
-import 'package:viettravel/custom_widget/password_field.dart';
-import 'package:viettravel/custom_widget/long_button.dart';
+import 'package:viettravel/widget/custom_text_field.dart';
+import 'package:viettravel/widget/password_field.dart';
+import 'package:viettravel/widget/long_button.dart';
 import 'package:viettravel/helper/validate.dart';
 
 class SignupScreen extends StatefulWidget {
