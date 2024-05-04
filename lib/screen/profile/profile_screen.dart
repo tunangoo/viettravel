@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'edit_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -22,7 +23,12 @@ class _ProfileScreen extends State<ProfileScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => EditScreen()),
+              );
+            },
             icon: Icon(Icons.border_color_outlined,),)
         ],
       ),

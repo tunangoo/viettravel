@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:viettravel/helpers/app_constant.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
