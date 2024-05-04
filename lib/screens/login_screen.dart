@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:viettravel/constant/app_constant.dart';
+import 'package:viettravel/constants/app_constant.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/ri.dart';
-import 'package:viettravel/screen/signup_screen.dart';
+import 'package:viettravel/screens/signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -147,7 +147,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    print("da nhan dang ky ngay");
                     Navigator.push(
                       context,
                       PageRouteBuilder(

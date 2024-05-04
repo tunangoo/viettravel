@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:viettravel/widget/custom_text_field.dart';
-import 'package:viettravel/widget/password_field.dart';
-import 'package:viettravel/widget/long_button.dart';
-import 'package:viettravel/helper/validate.dart';
+import 'package:viettravel/widgets/custom_text_field.dart';
+import 'package:viettravel/widgets/password_field.dart';
+import 'package:viettravel/widgets/long_button.dart';
+import 'package:viettravel/helpers/validate.dart';
 
 class SignupScreen extends StatefulWidget {
   @override

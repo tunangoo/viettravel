@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/ri.dart';
-import 'package:viettravel/screen/favorite_screen.dart';
-import 'package:viettravel/screen/home_screen.dart';
-import 'package:viettravel/screen/profile_screen.dart';
-import 'package:viettravel/screen/search_screen.dart';
-import 'package:viettravel/screen/login_screen.dart';
-import 'package:viettravel/constant/app_constant.dart';
+import 'package:viettravel/screens/favorite_screen.dart';
+import 'package:viettravel/screens/home_screen.dart';
+import 'package:viettravel/screens/profile_screen.dart';
+import 'package:viettravel/screens/search_screen.dart';
+import 'package:viettravel/screens/login_screen.dart';
+import 'package:viettravel/constants/app_constant.dart';
+import 'package:viettravel/screens/signup_screen.dart';
 
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: MyApp(),
+    home: LoginScreen(),
   ));
 }
 
@@ -29,7 +30,7 @@ class _MyAppState extends State<MyApp> {
     HomeScreen(),
     SearchScreen(),
     FavoriteScreen(),
-    ProfileScreen()
+    ProfileScreen(),
   ];
 
   @override
