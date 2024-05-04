@@ -1,22 +1,36 @@
 import 'package:flutter/material.dart';
+import 'edit_screen.dart';
+import 'package:viettravel/screen/home_screen.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
 
+  @override
+  State<StatefulWidget> createState() => _ProfileScreen();
+}
+
+class _ProfileScreen extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: (){},
+          onPressed: () {},
           icon: const Icon(Icons.arrow_back_ios,),
         ),
         title: Text(
-          "Profile",
+          "Trang cá nhân",
           style: Theme.of(context).textTheme.headlineMedium,
         ),
         actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.border_color_outlined,),)
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => EditScreen()),
+              );
+            },
+            icon: Icon(Icons.border_color_outlined,),)
         ],
       ),
       body: SingleChildScrollView(
@@ -26,9 +40,6 @@ class ProfileScreen extends StatelessWidget {
               child: SizedBox(
                 width: 200,
                 height: 200,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                ),
               ),
             ),
             const SizedBox(height: 10),
@@ -47,7 +58,7 @@ class ProfileScreen extends StatelessWidget {
                       children: [
                         Center(
                           child: Text(
-                            'Reward Points',
+                            'Điểm thưởng',
                             style: TextStyle(color: Colors.black, fontSize: 18),
                           ),
                         ),
@@ -70,7 +81,7 @@ class ProfileScreen extends StatelessWidget {
                       children: [
                         Center(
                           child: Text(
-                            'Travel Trips',
+                            'Số chuyến đi',
                             style: TextStyle(color: Colors.black, fontSize: 18),
                           ),
                         ),
@@ -93,7 +104,7 @@ class ProfileScreen extends StatelessWidget {
                       children: [
                         Center(
                           child: Text(
-                            'Bucket List',
+                            'Danh sách',
                             style: TextStyle(color: Colors.black, fontSize: 18),
                           ),
                         ),
@@ -107,11 +118,11 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ],
             ),
-            ProfileMenuWidget(title: "Profile", icon: Icons.perm_identity, onPress: (){},),
-            ProfileMenuWidget(title: "Bookmarked", icon: Icons.bookmark, onPress: (){},),
-            ProfileMenuWidget(title: "Previous Trips", icon: Icons.card_travel, onPress: (){},),
-            ProfileMenuWidget(title: "Settings", icon: Icons.settings_rounded, onPress: (){},),
-            ProfileMenuWidget(title: "Version", icon: Icons.travel_explore, onPress: (){},),
+            ProfileMenuWidget(title: "Trang cá nhân", icon: Icons.perm_identity, onPress: (){},),
+            ProfileMenuWidget(title: "Đã đánh dấu", icon: Icons.bookmark, onPress: (){},),
+            ProfileMenuWidget(title: "Chuyến đi trước", icon: Icons.card_travel, onPress: (){},),
+            ProfileMenuWidget(title: "Cài đặt", icon: Icons.settings_rounded, onPress: (){},),
+            ProfileMenuWidget(title: "Phiên bản", icon: Icons.travel_explore, onPress: (){},),
           ],
         )
       ),

@@ -4,8 +4,8 @@ import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/ri.dart';
 import 'package:viettravel/screen/favorite_screen.dart';
 import 'package:viettravel/screen/home_screen.dart';
-import 'package:viettravel/screen/profile_screen.dart';
-import 'package:viettravel/screen/search_screen.dart';
+import 'package:viettravel/screen/profile/profile_screen.dart';
+import 'package:viettravel/screen/search/search_screen.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -28,7 +28,7 @@ class _MyAppState extends State<MyApp> {
     HomeScreen(),
     SearchScreen(),
     FavoriteScreen(),
-    ProfileScreen()
+    ProfileScreen(),
   ];
 
   @override
