@@ -5,6 +5,7 @@ import 'package:viettravel/widgets/custom_text_field.dart';
 import 'package:viettravel/widgets/password_field.dart';
 import 'package:viettravel/widgets/long_button.dart';
 import 'package:viettravel/helpers/validate.dart';
+import 'package:viettravel/services/signup_service.dart';
 
 class SignupScreen extends StatefulWidget {
   @override
@@ -21,6 +22,7 @@ class _SignupScreenState extends State<SignupScreen> {
   String _emailError = '';
   String _usernameError = '';
   String _passwordError = '';
+  String _signupError = '';
 
   void toggleObscureText() {
     setState(() {
@@ -146,7 +148,7 @@ class _SignupScreenState extends State<SignupScreen> {
             ),
             if (_passwordError.isNotEmpty)
               Padding(
-                padding: const EdgeInsets.only(bottom: 40),
+                padding: const EdgeInsets.only(bottom: 10),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -159,7 +161,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
               ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 40),
+              padding: const EdgeInsets.only(top: 30, bottom: 10),
               child: LongButton(
                 buttonName: 'Đăng ký',
                 onPressed: () {
@@ -179,11 +181,55 @@ class _SignupScreenState extends State<SignupScreen> {
                   });
                   if(_fullNameError.isEmpty && _emailError.isEmpty
                       && _usernameError.isEmpty && _passwordError.isEmpty) {
-                    print("call api");
+                    signUp(
+                        _fullNameController.text,
+                        _emailController.text,
+                        _usernameController.text,
+                        _passwordController.text
+                    ).then((response) {
+                      if(response.statusCode == 200) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Đăng ký thành công'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context); // Đóng dialog
+                                    Navigator.pop(context); // Quay về màn hình trước đó (màn hình đăng nhập)
+                                  },
+                                  child: Text('Oke'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      } else {
+                        setState(() {
+                          _signupError = response.message;
+                        });
+                      }
+                    });
                   }
                 },
               )
             ),
+            if(_signupError.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    _signupError,
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 15,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ),
+              ),
           ],
         ),
       ),
