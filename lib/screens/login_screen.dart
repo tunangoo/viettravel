@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:viettravel/constants/app_constant.dart';
+import 'package:viettravel/helpers/app_constant.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/ri.dart';
 import 'package:viettravel/screens/signup_screen.dart';

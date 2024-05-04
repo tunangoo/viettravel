@@ -7,7 +7,7 @@ import 'package:viettravel/screens/home_screen.dart';
 import 'package:viettravel/screens/profile_screen.dart';
 import 'package:viettravel/screens/search_screen.dart';
 import 'package:viettravel/screens/login_screen.dart';
-import 'package:viettravel/constants/app_constant.dart';
+import 'package:viettravel/helpers/app_constant.dart';
 import 'package:viettravel/screens/signup_screen.dart';
 
 void main() {
