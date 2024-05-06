@@ -1,4 +1,4 @@
-import 'package:viettravel/screen/search/Local_model.dart';
+import 'package:viettravel/screens/search/Local_model.dart';
 import 'package:flutter/material.dart';
 
 class ItemLocalWidget extends StatelessWidget {
