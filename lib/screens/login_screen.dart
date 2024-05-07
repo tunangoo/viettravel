@@ -4,6 +4,9 @@ import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/ri.dart';
 import 'package:viettravel/screens/signup_screen.dart';
 
+import '../widgets/custom_text_field.dart';
+import '../widgets/password_field.dart';
+
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -11,6 +14,10 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   var _obscureText = true;
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  String _username = '';
+  String _password = '';
 
   void toggleObscureText() {
     setState(() {
@@ -42,57 +49,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20),
-                  child: TextField(
-                    style: TextStyle(fontSize: 18, color: Colors.black),
-                    decoration: InputDecoration(
-                      hintText: "Tên đăng nhập",
-                      hintStyle: TextStyle(color: Color(0xff888888), fontSize: 15),
-                      filled: true,
-                      fillColor: Colors.grey[100],
-                      contentPadding: EdgeInsets.symmetric(vertical: 25, horizontal: 15), // Đặt padding cho TextField
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.transparent),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.transparent),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
+                  child: CustomTextField(
+                    hintText: 'Tên đăng nhập',
+                    controller: _usernameController,
+                    keyboardType: TextInputType.text,
                   ),
                 ),
                 Stack(
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(bottom: 9),
-                      child: TextField(
-                        style: TextStyle(fontSize: 18, color: Colors.black),
+                      child: PasswordField(
+                        hintText: 'Mật khẩu',
                         obscureText: _obscureText,
-                        decoration: InputDecoration(
-                          hintText: "Mật khẩu",
-                          hintStyle: TextStyle(color: Color(0xff888888), fontSize: 15),
-                          filled: true,
-                          fillColor: Colors.grey[100],
-                          contentPadding: EdgeInsets.symmetric(vertical: 25, horizontal: 15), // Đặt padding cho TextField
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
+                        controller: _passwordController,
+                        keyboardType: TextInputType.text,
+                        toggleObscureText: toggleObscureText,
                       ),
                     ),
-                    Positioned(
-                      right: 0,
-                      bottom: 20,
-                      child: IconButton(
-                        icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
-                        onPressed: toggleObscureText,
-                      ),
-                    )
                   ],
                 ),
                 Align(
