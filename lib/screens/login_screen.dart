@@ -4,7 +4,9 @@ import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/ri.dart';
 import 'package:viettravel/screens/forgot_password.dart';
 import 'package:viettravel/screens/signup_screen.dart';
+import 'package:viettravel/services/login_service.dart';
 
+import '../main.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/password_field.dart';
 
@@ -17,8 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   var _obscureText = true;
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
-  String _username = '';
-  String _password = '';
+  String _loginError = '';
 
   void toggleObscureText() {
     setState(() {
@@ -109,13 +110,34 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 40),
+                  padding: const EdgeInsets.only(bottom: 10),
                   child: SizedBox(
                     width: double.infinity,
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () {
-                        // Xử lý đăng nhập
+                        if(_usernameController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
+                          logIn(
+                              _usernameController.text,
+                              _passwordController.text
+                          ).then((response) {
+                            if(response.statusCode == 200) {
+                              accessToken = response.body['accessToken'];
+                              setState(() {
+                                _loginError = "";
+                              });
+                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => MyApp())); // Truyền giá trị _currentIndex = 0
+                            } else {
+                              setState(() {
+                                _loginError = "Tên đăng nhâp hoặc mật khẩu không chính xác";
+                              });
+                            }
+                          });
+                        } else {
+                          setState(() {
+                            _loginError = "Tên đăng nhâp hoặc mật khẩu không được để trống";
+                          });
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
@@ -130,6 +152,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
+                if(_loginError.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 40),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        _loginError,
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 15,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    ),
+                  ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
