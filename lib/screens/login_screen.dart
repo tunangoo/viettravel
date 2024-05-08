@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:viettravel/helpers/app_constant.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/ri.dart';
+import 'package:viettravel/screens/forgot_password.dart';
 import 'package:viettravel/screens/signup_screen.dart';
 
 import '../widgets/custom_text_field.dart';
@@ -75,7 +76,27 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.only(bottom: 40),
                     child: GestureDetector(
                       onTap: () {
-                        // Xử lý khi người dùng nhấn vào liên kết "Quên mật khẩu"
+                        Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            transitionDuration: Duration(milliseconds: 500),
+                            pageBuilder: (context, animation, secondaryAnimation) {
+                              return ForgotPasswordScreen();
+                            },
+                            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                              const begin = Offset(1.0, 0.0);
+                              const end = Offset.zero;
+                              const curve = Curves.ease;
+
+                              var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+                              return SlideTransition(
+                                position: animation.drive(tween),
+                                child: child,
+                              );
+                            },
+                          ),
+                        );
                       },
                       child: Text(
                         'Quên mật khẩu?',

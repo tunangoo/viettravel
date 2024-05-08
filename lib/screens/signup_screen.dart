@@ -200,7 +200,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                       Navigator.pop(context); // Đóng dialog
                                       Navigator.pop(context); // Quay về màn hình trước đó (màn hình đăng nhập)
                                     },
-                                    child: Text('Oke'),
+                                    child: Text('Xác nhận'),
                                   ),
                                 ],
                               );
