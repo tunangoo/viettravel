@@ -14,6 +14,8 @@ import 'package:viettravel/screens/all_places_screen.dart';
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
+    // phải đăng nhập từ màn login
+    // home: LoginScreen(),
     home: MyApp(),
   ));
 }
