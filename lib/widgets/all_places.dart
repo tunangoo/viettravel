@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:viettravel/models/all_places_model.dart';
+import 'package:viettravel/screens/place_details_screen.dart';
 class AllPlaces extends StatelessWidget {
   const AllPlaces({Key? key}) : super(key: key);
 
@@ -19,7 +20,12 @@ class AllPlaces extends StatelessWidget {
                 ),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(12),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PlaceDetailsScreen(image:allPlaces[index].image)),
+                    );
+                  },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
