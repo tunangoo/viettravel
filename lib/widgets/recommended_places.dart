@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:viettravel/widgets/recommended_places_model.dart';
+import 'package:viettravel/models/recommended_places_model.dart';
 
 class RecommendedPlaces extends StatelessWidget {
   const RecommendedPlaces({Key? key}) : super(key: key);
