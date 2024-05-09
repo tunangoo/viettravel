@@ -14,7 +14,7 @@ import 'package:viettravel/screens/all_places_screen.dart';
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: HomeScreen(),
+    home: MyApp(),
   ));
 }
 
