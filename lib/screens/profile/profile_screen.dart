@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'edit_screen.dart';
+import 'package:get/get.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -14,7 +15,9 @@ class _ProfileScreen extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Get.back();
+          },
           icon: const Icon(Icons.arrow_back_ios,),
         ),
         title: Text(
@@ -23,12 +26,7 @@ class _ProfileScreen extends State<ProfileScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => EditScreen()),
-              );
-            },
+            onPressed: () => Get.to(() => EditScreen()),
             icon: Icon(Icons.border_color_outlined,),)
         ],
       ),
