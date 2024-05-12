@@ -5,6 +5,7 @@ import 'package:iconify_flutter/icons/ri.dart';
 import 'package:viettravel/screens/forgot_password.dart';
 import 'package:viettravel/screens/signup_screen.dart';
 import 'package:viettravel/services/login_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../main.dart';
 import '../widgets/custom_text_field.dart';
@@ -20,11 +21,44 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   String _loginError = '';
+  SharedPreferences? prefs;
+
+  @override
+  void initState() {
+    super.initState();
+    initPrefs();
+    checkLoginStatus();
+  }
+
+  Future<void> initPrefs() async {
+    prefs = await SharedPreferences.getInstance();
+  }
 
   void toggleObscureText() {
     setState(() {
       _obscureText = !_obscureText;
     });
+  }
+
+  void checkLoginStatus() async {
+    final String? savedUsername = prefs?.getString('username');
+    final String? savedPassword = prefs?.getString('password');
+    print(savedPassword);
+    print(savedUsername);
+    if (savedUsername != null && savedPassword != null) {
+      // Nếu có tên người dùng và mật khẩu đã lưu, thực hiện gọi API login
+      logIn(savedUsername, savedPassword).then((response) {
+        if (response.statusCode == 200) {
+          final String accessToken = response.body['accessToken'];
+          prefs?.setString('accessToken', accessToken);
+          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => MyApp()));
+        } else {
+          setState(() {
+            _loginError = "Tên đăng nhập hoặc mật khẩu không chính xác";
+          });
+        }
+      });
+    }
   }
 
   @override
@@ -122,10 +156,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               _passwordController.text
                           ).then((response) {
                             if(response.statusCode == 200) {
-                              accessToken = response.body['accessToken'];
                               setState(() {
                                 _loginError = "";
                               });
+                              prefs?.setString('username', _usernameController.text);
+                              prefs?.setString('password', _passwordController.text);
+                              prefs?.setString('accessToken', accessToken);
                               Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => MyApp())); // Truyền giá trị _currentIndex = 0
                             } else {
                               setState(() {

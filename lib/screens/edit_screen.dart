@@ -9,21 +9,22 @@ class EditScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: const BackButton(),
+          icon: const Icon(Icons.arrow_back),
         ),
         title: Text(
-          "Chỉnh sửa trang",
+          "Thông tin cá nhân",
           style: Theme.of(context).textTheme.headlineMedium,
         ),
         actions: [
           TextButton(
             onPressed: () {},
             child: Text(
-              'Xong',
+              'Lưu',
               style: TextStyle(
                 color: Colors.blue,
                 fontSize: 20.0,
@@ -39,15 +40,13 @@ class EditScreen extends StatelessWidget {
                 child: SizedBox(
                   width: 180,
                   height: 180,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.asset(
-                      "assets/images/profile.png",
-                      height: double.maxFinite,
-                      width: 130,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                  // child: CircleAvatar(
+                  //   maxRadius: 32.0,
+                  //   child: Image.asset(
+                  //     "assets/images/profile.png",
+                  //     width: 64.0,
+                  //   ),
+                  // ),
                 ),
               ),
             const SizedBox(height: 10),
