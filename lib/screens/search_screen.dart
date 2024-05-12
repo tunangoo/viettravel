@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:viettravel/screens/search/Local_model.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:viettravel/screens/all_places_screen.dart';
+
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -21,10 +23,6 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(  
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.arrow_back_ios,),
-        ),
         title: Text(
           "Tìm kiếm",
           style: Theme.of(context).textTheme.headlineMedium,
@@ -49,6 +47,11 @@ class _SearchScreenState extends State<SearchScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
+              onTap: () {
+                Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const AllPlacesScreen()),
+              );},
               style: TextStyle(color: Colors.black),
               decoration: InputDecoration(
                 filled: true,

@@ -10,8 +10,10 @@ class EditScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.arrow_back_ios,),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const BackButton(),
         ),
         title: Text(
           "Chỉnh sửa trang",
@@ -37,13 +39,15 @@ class EditScreen extends StatelessWidget {
                 child: SizedBox(
                   width: 180,
                   height: 180,
-                  // child: CircleAvatar(
-                  //   maxRadius: 32.0,
-                  //   child: Image.asset(
-                  //     "assets/images/profile.png",
-                  //     width: 64.0,
-                  //   ),
-                  // ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.asset(
+                      "assets/images/profile.png",
+                      height: double.maxFinite,
+                      width: 130,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
               ),
             const SizedBox(height: 10),
