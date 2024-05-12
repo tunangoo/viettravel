@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:viettravel/screens/edit_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -12,9 +13,12 @@ class _ProfileScreen extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.arrow_back_ios,),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back),
         ),
         title: Text(
           "Trang cá nhân",
@@ -22,102 +26,127 @@ class _ProfileScreen extends State<ProfileScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.border_color_outlined,),)
+            onPressed: () {
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  transitionDuration: Duration(milliseconds: 500),
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                    return EditScreen();
+                  },
+                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                    const begin = Offset(1.0, 0.0);
+                    const end = Offset.zero;
+                    const curve = Curves.ease;
+
+                    var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+                    return SlideTransition(
+                      position: animation.drive(tween),
+                      child: child,
+                    );
+                  },
+                ),
+              );
+            },
+            icon: Icon(Icons.border_color_outlined),
+            color: Colors.blue,
+            padding: EdgeInsets.only(right: 10),
+          ),
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Center(
-              child: SizedBox(
-                width: 200,
-                height: 200,
+          child: Column(
+            children: [
+              Center(
+                child: SizedBox(
+                  width: 200,
+                  height: 200,
+                ),
               ),
-            ),
-            const SizedBox(height: 10),
-            Text("Your Name", style: Theme.of(context).textTheme.headlineMedium),
-            const SizedBox(height: 20),
-            Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.only(
-                      top: 12.0,
-                      left: 12.0,
-                    ),
-                    height: 100,
-                    child: Column(
-                      children: [
-                        Center(
-                          child: Text(
-                            'Điểm thưởng',
-                            style: TextStyle(color: Colors.black, fontSize: 18),
+              const SizedBox(height: 10),
+              Text("Your Name", style: Theme.of(context).textTheme.headlineMedium),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.only(
+                        top: 12.0,
+                        left: 12.0,
+                      ),
+                      height: 100,
+                      child: Column(
+                        children: [
+                          Center(
+                            child: Text(
+                              'Điểm thưởng',
+                              style: TextStyle(color: Colors.black, fontSize: 18),
+                            ),
                           ),
-                        ),
-                        Text(
-                          "Số điểm",
-                          style: TextStyle(color: Colors.blue, fontSize: 18),
-                        ),
-                      ],
+                          Text(
+                            "Số điểm",
+                            style: TextStyle(color: Colors.blue, fontSize: 18),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.only(
-                      top: 12.0,
-                      left: 12.0,
-                    ),
-                    height: 100,
-                    child: Column(
-                      children: [
-                        Center(
-                          child: Text(
-                            'Số chuyến đi',
-                            style: TextStyle(color: Colors.black, fontSize: 18),
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.only(
+                        top: 12.0,
+                        left: 12.0,
+                      ),
+                      height: 100,
+                      child: Column(
+                        children: [
+                          Center(
+                            child: Text(
+                              'Số chuyến đi',
+                              style: TextStyle(color: Colors.black, fontSize: 18),
+                            ),
                           ),
-                        ),
-                        Text(
-                          "Số điểm",
-                          style: TextStyle(color: Colors.blue, fontSize: 18),
-                        ),
-                      ],
+                          Text(
+                            "Số điểm",
+                            style: TextStyle(color: Colors.blue, fontSize: 18),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.only(
-                      top: 12.0,
-                      left: 12.0,
-                    ),
-                    height: 100,
-                    child: Column(
-                      children: [
-                        Center(
-                          child: Text(
-                            'Danh sách',
-                            style: TextStyle(color: Colors.black, fontSize: 18),
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.only(
+                        top: 12.0,
+                        left: 12.0,
+                      ),
+                      height: 100,
+                      child: Column(
+                        children: [
+                          Center(
+                            child: Text(
+                              'Danh sách',
+                              style: TextStyle(color: Colors.black, fontSize: 18),
+                            ),
                           ),
-                        ),
-                        Text(
-                          "Số điểm",
-                          style: TextStyle(color: Colors.blue, fontSize: 18),
-                        ),
-                      ],
+                          Text(
+                            "Số điểm",
+                            style: TextStyle(color: Colors.blue, fontSize: 18),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            ProfileMenuWidget(title: "Trang cá nhân", icon: Icons.perm_identity, onPress: (){},),
-            ProfileMenuWidget(title: "Đã đánh dấu", icon: Icons.bookmark, onPress: (){},),
-            ProfileMenuWidget(title: "Chuyến đi trước", icon: Icons.card_travel, onPress: (){},),
-            ProfileMenuWidget(title: "Cài đặt", icon: Icons.settings_rounded, onPress: (){},),
-            ProfileMenuWidget(title: "Phiên bản", icon: Icons.travel_explore, onPress: (){},),
-          ],
-        )
+                ],
+              ),
+              ProfileMenuWidget(title: "Trang cá nhân", icon: Icons.perm_identity, onPress: (){},),
+              ProfileMenuWidget(title: "Đã đánh dấu", icon: Icons.bookmark, onPress: (){},),
+              ProfileMenuWidget(title: "Chuyến đi trước", icon: Icons.card_travel, onPress: (){},),
+              ProfileMenuWidget(title: "Cài đặt", icon: Icons.settings_rounded, onPress: (){},),
+              ProfileMenuWidget(title: "Phiên bản", icon: Icons.travel_explore, onPress: (){},),
+            ],
+          )
       ),
     );
   }
