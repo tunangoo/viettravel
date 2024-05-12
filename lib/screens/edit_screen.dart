@@ -9,19 +9,22 @@ class EditScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.arrow_back_ios,),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back),
         ),
         title: Text(
-          "Chỉnh sửa trang",
+          "Thông tin cá nhân",
           style: Theme.of(context).textTheme.headlineMedium,
         ),
         actions: [
           TextButton(
             onPressed: () {},
             child: Text(
-              'Xong',
+              'Lưu',
               style: TextStyle(
                 color: Colors.blue,
                 fontSize: 20.0,

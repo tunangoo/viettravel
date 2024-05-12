@@ -39,6 +39,8 @@ dependencies:
   iconify: ^0.0.1
   iconify_flutter: ^0.0.5
   http: ^1.2.1
+  shared_preferences:  ^2.2.3
+
 
 dev_dependencies:
   flutter_test:
