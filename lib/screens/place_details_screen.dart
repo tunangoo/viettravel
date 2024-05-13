@@ -1,131 +1,209 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class PlaceDetailsScreen extends StatelessWidget {
-  const PlaceDetailsScreen({
-    Key? key,
-    required this.image,
-  }) : super(key: key);
-  final String image;
+class PlaceDetailsScreen extends StatefulWidget {
+
+  const PlaceDetailsScreen{Key? key}) : super(key: key);
+
+  @override
+  _DetailPageStage createState() => _DetailPageStage();
+}
+
+class _DetailPageStage extends State<PlaceDetailsScreen> {
+  Icon favoriteIcon1 = Icon(Icons.favorite_border, color: Colors.white);
+  bool isFavorite1 = false;
+  void tapFavorite1() {
+    setState(() {
+      isFavorite1 = isFavorite1 == true ? false : true;
+      if (isFavorite1) {
+        favoriteIcon1 = Icon(Icons.favorite, color: Colors.red.shade300);
+      } else {
+        favoriteIcon1 = Icon(Icons.favorite_border, color: Colors.white);
+      }
+    });
+  }
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    final destination = widget.destination;
     return Scaffold(
       body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.all(10),
+        child: Stack(
           children: [
-            SizedBox(
-              height: size.height * 0.38,
-              width: double.maxFinite,
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.vertical(
-                          bottom: Radius.circular(20)),
-                      image: DecorationImage(
-                        image: AssetImage(image),
-                        fit: BoxFit.cover,
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.4),
-                          spreadRadius: 0,
-                          blurRadius: 20,
-                          offset: const Offset(0, 10),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Positioned(
-                    top: 10,
-                    left: 0,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.7),
-                        borderRadius: const BorderRadius.horizontal(
-                            right: Radius.circular(15)),
-                      ),
-                      child: Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            iconSize: 20,
-                            icon: const BackButton(),
-                          ),
-                          IconButton(
-                            iconSize: 20,
-                            onPressed: () {
-                            },
-                            icon: const Icon(Icons.favorite),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            const SizedBox(height: 20),
-            Row(
-              children: [
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+            SingleChildScrollView(
+              child: Container(
+                child: Stack(
                   children: [
-                    Text(
-                      "Tên địa điểm",
-                      style: Theme.of(context).textTheme.titleLarge,
+                    Container(
+                      height: screenHeight*0.4,
+                      child:  Container(
+                              child: Image(image: AssetImage("assets/images/place1.jpg"), fit: BoxFit.cover,)
+                          )
                     ),
-                    const SizedBox(height: 5),
-                    Text(
-                      "Địa chỉ",
-                      style: Theme.of(context).textTheme.bodySmall,
-                    )
+                  
+                    Container(
+                      padding: EdgeInsets.only(top: screenHeight*0.41, left: 10, right: 10),
+                      child: Container(
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    height: 70,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          destination.name,
+                                          style: GoogleFonts.montserrat(
+                                              fontSize: 32,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black87
+                                          ),
+                                        ),
+                                        Row(
+                                          children: [
+                                            Icon(Icons.location_on_outlined),
+                                            Text(
+                                              destination.location,
+                                              style: GoogleFonts.montserrat(
+                                                  fontSize: 16,
+                                                  color: Colors.black87
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.only(right: 20),
+                                    child: Row(
+                                      children: [
+                                        Icon(Icons.star_border_rounded, size: 35),
+                                        Text(destination.star, style: GoogleFonts.montserrat(
+                                          fontSize: 30, fontWeight: FontWeight.bold
+                                        ))
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                              SizedBox(height: 10),
+        
+                              SizedBox(height: 10),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    child: Image(
+                                      image: AssetImage('assets/images/place1.jpg',),
+                                      height: 50,
+                                      width: 50,
+                                      fit:BoxFit.cover,
+                                    ),
+                                  ),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    child: Image(
+                                      image: AssetImage('assets/images/place1.jpg',),
+                                      height: 50,
+                                      width: 50,
+                                      fit:BoxFit.cover,
+                                    ),
+                                  ),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    child: Image(
+                                      image: AssetImage('assets/images/place1.jpg',),
+                                      height: 50,
+                                      width: 50,
+                                      fit:BoxFit.cover,
+                                    ),
+                                  ),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    child: Image(
+                                      image: AssetImage('assets/images/place1.jpg',),
+                                      height: 50,
+                                      width: 50,
+                                      fit:BoxFit.cover,
+                                    ),
+                                  ),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    child: Image(
+                                      image: AssetImage('assets/images/place1.jpg',),
+                                      height: 50,
+                                      width: 50,
+                                      fit:BoxFit.cover,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 10),
+                              Container(
+                                child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text("About Destination", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25))),
+                              ),
+                              SizedBox(height: 10),
+                              Container(
+                                child: SingleChildScrollView(
+                                  scrollDirection: Axis.vertical,
+                                  child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                          "Hồ Tây là một trong những thắng cảnh đẹp nổi tiếng ở thủ đô Hà Nội, nơi có nhiều di tích lịch"
+                                              " sử văn hóa gắn liền với lịch sử hình thành, phát triển của Kinh thành Thăng Long xưa và Hà "
+                                              "Nội ngày nay. Vẻ đẹp của hồ Tây là một nét chấm phá lãng mạn, thi vị trong bức tranh đầy màu "
+                                              "sắc của Hà Nội, nơi gặp gỡ, ghi dấu kỷ niệm của biết bao người Hà Nội, nơi níu chân du khách mỗi lần đếm thăm thủ đô. sắc của Hà Nội, nơi gặp gỡ, ghi dấu kỷ niệm của biết bao người Hà Nội, nơi níu chân du khách mỗi lần đếm thăm thủ đô.sắc của Hà Nội, nơi gặp gỡ, ghi dấu kỷ niệm của biết bao người Hà Nội, nơi níu chân du khách mỗi lần đếm thăm thủ đô.sắc của Hà Nội, nơi gặp gỡ, ghi dấu kỷ niệm của biết bao người Hà Nội, nơi níu chân du khách mỗi lần đếm thăm thủ đô.sắc của Hà Nội, nơi gặp gỡ, ghi dấu kỷ niệm của biết bao người Hà Nội, nơi níu chân du khách mỗi lần đếm thăm thủ đô.sắc của Hà Nội, nơi gặp gỡ, ghi dấu kỷ niệm của biết bao người Hà Nội, nơi níu chân du khách mỗi lần đếm thăm thủ đô. ",
+                                          style: TextStyle(fontSize: 15)
+                                      )
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                      ),
+                    ),
+        
                   ],
                 ),
-                const Spacer(),
-                Wrap(
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
-                    Text(
-                      "4.6",
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                    Icon(
-                      Icons.favorite,
-                      color: Colors.pink,
-                      size: 15,
-                    )
-                  ],
-                )
-              ],
-            ),
-            const SizedBox(height: 20),
-            const SizedBox(
-              height: 280,
-              child: Text("djd  jkd kk kd kdk k j j kj k j j j jk jk jk jk jkj kj kj k kj kj kj kdjkjdk jk jk djk jk jdk jk"),
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                elevation: 0,
-                shape: const StadiumBorder(),
-                padding: const EdgeInsets.symmetric(
-                  vertical: 15,
-                  horizontal: 8.0,
-                ),
               ),
-              child: const Text(
-                  "Đặt vé",
-                style: TextStyle(color: Colors.black),
-              ),
-            )
+            ),
+            // Positioned(
+            //   bottom: 10,
+            //   left: 10,
+            //   child: Container(
+            //     child: Center(
+            //       child: InkWell(
+            //           onTap: (){},
+            //           child: Container(
+            //             width: screenWidth*0.95,
+            //             height: 60,
+            //             padding: EdgeInsets.symmetric(horizontal: 20),
+            //             decoration: BoxDecoration(
+            //                 borderRadius: BorderRadius.circular(10),
+            //                 color: Colors.blue
+            //             ),
+            //             child: Center(
+            //               child: Text(
+            //                 "Book Now",
+            //                 style: TextStyle(
+            //                     color: Colors.white,
+            //                     fontSize: 24
+            //                 ),
+            //               ),
+            //             ),
+            //           )
+            //       ),
+            //     ),
+            //   ),
+            // )
           ],
         ),
       ),
