@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:viettravel/screens/edit_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -12,17 +13,18 @@ class _ProfileScreen extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.arrow_back_ios,),
-        ),
         title: Text(
           "Trang cá nhân",
           style: Theme.of(context).textTheme.headlineMedium,
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => EditScreen()),
+              );
+            },
             icon: Icon(Icons.border_color_outlined,),)
         ],
       ),
@@ -33,6 +35,12 @@ class _ProfileScreen extends State<ProfileScreen> {
               child: SizedBox(
                 width: 200,
                 height: 200,
+                child: Image.asset(
+                  "assets/images/profile.png",
+                  height: double.maxFinite,
+                  width: 130,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             const SizedBox(height: 10),

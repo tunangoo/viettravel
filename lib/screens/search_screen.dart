@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:viettravel/screens/search/Local_model.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:viettravel/screens/all_places_screen.dart';
 
 
@@ -27,18 +26,6 @@ class _SearchScreenState extends State<SearchScreen> {
           "Tìm kiếm",
           style: Theme.of(context).textTheme.headlineMedium,
         ),
-        actions: [
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              'Hủy',
-              style: TextStyle(
-                color: Colors.blue,
-                fontSize: 20.0,
-              ),
-            ),
-          ),
-        ],
       ),
       body: Padding(
         padding: EdgeInsets.all(10),
