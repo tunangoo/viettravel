@@ -122,7 +122,7 @@ class PlaceDetailsScreen extends StatelessWidget {
                 ),
               ),
               child: const Text(
-                  "Đặt vé",
+                "Đặt vé",
                 style: TextStyle(color: Colors.black),
               ),
             )

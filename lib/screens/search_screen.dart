@@ -20,7 +20,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(  
+    return Scaffold(
       appBar: AppBar(
         title: Text(
           "Tìm kiếm",
@@ -36,9 +36,9 @@ class _SearchScreenState extends State<SearchScreen> {
             TextField(
               onTap: () {
                 Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const AllPlacesScreen()),
-              );},
+                  context,
+                  MaterialPageRoute(builder: (context) => const AllPlacesScreen()),
+                );},
               style: TextStyle(color: Colors.black),
               decoration: InputDecoration(
                 filled: true,
