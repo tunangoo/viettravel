@@ -12,7 +12,7 @@ class FavoriteScreen extends StatelessWidget {
           ),
           body: ListView.builder(
             padding: EdgeInsets.only(top: 16.0, left: 8.0, right: 8.0, bottom: 16.0),
-            itemCount: events.length,
+            // itemCount: events.length,
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
