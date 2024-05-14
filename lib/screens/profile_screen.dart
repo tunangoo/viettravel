@@ -13,13 +13,6 @@ class _ProfileScreen extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back),
-        ),
         title: Text(
           "Trang cá nhân",
           style: Theme.of(context).textTheme.headlineMedium,
@@ -29,30 +22,10 @@ class _ProfileScreen extends State<ProfileScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                PageRouteBuilder(
-                  transitionDuration: Duration(milliseconds: 500),
-                  pageBuilder: (context, animation, secondaryAnimation) {
-                    return EditScreen();
-                  },
-                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                    const begin = Offset(1.0, 0.0);
-                    const end = Offset.zero;
-                    const curve = Curves.ease;
-
-                    var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-                    return SlideTransition(
-                      position: animation.drive(tween),
-                      child: child,
-                    );
-                  },
-                ),
+                MaterialPageRoute(builder: (context) => EditScreen()),
               );
             },
-            icon: Icon(Icons.border_color_outlined),
-            color: Colors.blue,
-            padding: EdgeInsets.only(right: 10),
-          ),
+            icon: Icon(Icons.border_color_outlined,),color: Colors.lightBlue,)
         ],
       ),
       body: SingleChildScrollView(
@@ -62,6 +35,12 @@ class _ProfileScreen extends State<ProfileScreen> {
                 child: SizedBox(
                   width: 200,
                   height: 200,
+                  child: Image.asset(
+                    "assets/images/profile.png",
+                    height: double.maxFinite,
+                    width: 130,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               const SizedBox(height: 10),
@@ -194,3 +173,7 @@ class ProfileMenuWidget extends StatelessWidget {
     );
   }
 }
+
+
+
+
