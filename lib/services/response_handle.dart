@@ -14,7 +14,8 @@ class ResponseHandle {
 
   factory ResponseHandle.fromHttpResponse(http.Response response) {
     try {
-      dynamic body = json.decode(response.body);
+      // dynamic body = json.decode(response.body);
+      dynamic body = response.body;
       return ResponseHandle(
         statusCode: response.statusCode,
         body: body,
