@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:viettravel/models/recommended_places_model.dart';
-import 'package:viettravel/screens/place_details_screen.dart';
+import 'package:viettravel/screens/place_detail_screen.dart';
 
 class RecommendedPlaces extends StatelessWidget {
   const RecommendedPlaces({Key? key}) : super(key: key);
@@ -26,10 +26,10 @@ class RecommendedPlaces extends StatelessWidget {
             child: InkWell(
               borderRadius: BorderRadius.circular(12),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => PlaceDetailsScreen(image:recommendedPlaces[index].image)),
-                );
+                // Navigator.push(
+                //   context,
+                //   // MaterialPageRoute(builder: (context) => PlaceDetailsScreen(image:recommendedPlaces[index].image)),
+                // );
               },
               child: Padding(
                 padding: const EdgeInsets.all(10),
