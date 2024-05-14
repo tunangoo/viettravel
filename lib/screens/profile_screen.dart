@@ -33,18 +33,29 @@ class _ProfileScreen extends State<ProfileScreen> {
             children: [
               Center(
                 child: SizedBox(
-                  width: 200,
-                  height: 200,
-                  child: Image.asset(
-                    "assets/images/profile.png",
-                    height: double.maxFinite,
-                    width: 130,
-                    fit: BoxFit.cover,
+                  width: 110,
+                  height: 110,
+                  child: ClipOval(
+                    child: Image.asset(
+                      "assets/images/profile.png",
+                      height: double.infinity,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
-              Text("Your Name", style: Theme.of(context).textTheme.headlineMedium),
+              Center(
+                child: Text(
+                  "Your Name",
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    fontSize: 30, // Override specific properties if needed
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              Text("email@gmail.com", style: TextStyle(color: Colors.grey),),
               const SizedBox(height: 20),
               Row(
                 children: [
@@ -60,12 +71,12 @@ class _ProfileScreen extends State<ProfileScreen> {
                           Center(
                             child: Text(
                               'Điểm thưởng',
-                              style: TextStyle(color: Colors.black, fontSize: 18),
+                              style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                           ),
                           Text(
-                            "Số điểm",
-                            style: TextStyle(color: Colors.blue, fontSize: 18),
+                            "360",
+                            style: TextStyle(color: Colors.blue, fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -83,12 +94,12 @@ class _ProfileScreen extends State<ProfileScreen> {
                           Center(
                             child: Text(
                               'Số chuyến đi',
-                              style: TextStyle(color: Colors.black, fontSize: 18),
+                              style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                           ),
                           Text(
-                            "Số điểm",
-                            style: TextStyle(color: Colors.blue, fontSize: 18),
+                            "238",
+                            style: TextStyle(color: Colors.blue, fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -106,12 +117,12 @@ class _ProfileScreen extends State<ProfileScreen> {
                           Center(
                             child: Text(
                               'Danh sách',
-                              style: TextStyle(color: Colors.black, fontSize: 18),
+                              style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                           ),
                           Text(
-                            "Số điểm",
-                            style: TextStyle(color: Colors.blue, fontSize: 18),
+                            "473",
+                            style: TextStyle(color: Colors.blue, fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -120,10 +131,10 @@ class _ProfileScreen extends State<ProfileScreen> {
                 ],
               ),
               ProfileMenuWidget(title: "Trang cá nhân", icon: Icons.perm_identity, onPress: (){},),
-              ProfileMenuWidget(title: "Đã đánh dấu", icon: Icons.bookmark, onPress: (){},),
+              ProfileMenuWidget(title: "Đã đánh dấu", icon: Icons.bookmark_outline, onPress: (){},),
               ProfileMenuWidget(title: "Chuyến đi trước", icon: Icons.card_travel, onPress: (){},),
-              ProfileMenuWidget(title: "Cài đặt", icon: Icons.settings_rounded, onPress: (){},),
-              ProfileMenuWidget(title: "Phiên bản", icon: Icons.travel_explore, onPress: (){},),
+              ProfileMenuWidget(title: "Cài đặt", icon: Icons.settings_outlined, onPress: (){},),
+              ProfileMenuWidget(title: "Phiên bản", icon: Icons.travel_explore_outlined, onPress: (){},),
             ],
           )
       ),
@@ -160,7 +171,7 @@ class ProfileMenuWidget extends StatelessWidget {
         ),
         child: Icon(icon),
       ),
-      title: Text(title, style: Theme.of(context).textTheme.bodyMedium,),
+      title: Text(title, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black, fontWeight: FontWeight.bold),),
       trailing: endIcon? Container(
         width: 30,
         height: 30,
