@@ -32,7 +32,7 @@ class EditTextField extends StatelessWidget {
           borderSide: BorderSide(color: Colors.transparent),
           borderRadius: BorderRadius.circular(10),
         ),
-        suffixIcon: Icon(Icons.check),
+        suffixIcon: Icon(Icons.check) ,
       ),
     );
   }

@@ -119,7 +119,38 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
-                                  title: Text('Cấp mật khẩu mới thành công, mật khẩu mới đã được gửi về email đăng ký'),
+                                  title: Container(
+                                    child: Center(
+                                      child: Column(
+                                        children: [
+                                          SizedBox(
+                                            child: ClipOval(
+                                              child: Icon(
+                                                Icons.check,
+                                                size: 60,
+                                                color: Colors.lightBlue,
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
+                                            "Kiểm tra gmail của bạn",
+                                            style: TextStyle(
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          SizedBox(height: 20),
+                                          Text(
+                                            "Chúng tôi đã gửi mật khẩu mới đến email của bạn",
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                                   actions: <Widget>[
                                     TextButton(
                                       onPressed: () {

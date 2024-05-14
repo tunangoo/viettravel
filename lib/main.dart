@@ -15,8 +15,8 @@ void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     // phải đăng nhập từ màn login
-    // home: LoginScreen(),
-    home: MyApp(),
+    home: LoginScreen(),
+    //home: MyApp(),
   ));
 }
 
