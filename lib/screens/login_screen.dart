@@ -43,8 +43,6 @@ class _LoginScreenState extends State<LoginScreen> {
   void checkLoginStatus() async {
     final String? savedUsername = prefs?.getString('username');
     final String? savedPassword = prefs?.getString('password');
-    print(savedPassword);
-    print(savedUsername);
     if (savedUsername != null && savedPassword != null) {
       // Nếu có tên người dùng và mật khẩu đã lưu, thực hiện gọi API login
       logIn(savedUsername, savedPassword).then((response) {
@@ -150,10 +148,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () {
+                        print("nhan dang nhap");
                         if(_usernameController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
                           logIn(
-                              _usernameController.text,
-                              _passwordController.text
+                            _usernameController.text,
+                            _passwordController.text
                           ).then((response) {
                             if(response.statusCode == 200) {
                               setState(() {
@@ -161,14 +160,15 @@ class _LoginScreenState extends State<LoginScreen> {
                               });
                               prefs?.setString('username', _usernameController.text);
                               prefs?.setString('password', _passwordController.text);
-                              prefs?.setString('accessToken', accessToken);
+                              prefs?.setString('accessToken', response.body['accessToken']);
+                              accessToken = response.body['accessToken'];
                               Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => MyApp())); // Truyền giá trị _currentIndex = 0
                             } else {
                               setState(() {
                                 _loginError = "Tên đăng nhâp hoặc mật khẩu không chính xác";
                               });
                             }
-                          });
+                         });
                         } else {
                           setState(() {
                             _loginError = "Tên đăng nhâp hoặc mật khẩu không được để trống";

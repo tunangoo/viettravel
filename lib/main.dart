@@ -1,40 +1,45 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/ri.dart';
+import 'package:viettravel/screens/edit_screen.dart';
 import 'package:viettravel/screens/favorite_screen.dart';
 import 'package:viettravel/screens/home_screen.dart';
+import 'package:viettravel/screens/place_detail_screen.dart';
 import 'package:viettravel/screens/profile_screen.dart';
 import 'package:viettravel/screens/search_screen.dart';
 import 'package:viettravel/screens/login_screen.dart';
 import 'package:viettravel/helpers/app_constant.dart';
-import 'package:viettravel/screens/signup_screen.dart';
 import 'package:viettravel/screens/all_places_screen.dart';
+import 'package:viettravel/services/api_handle.dart';
+import 'package:viettravel/models/user_model.dart';
 
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    // phải đăng nhập từ màn login
     home: LoginScreen(),
-    //home: MyApp(),
   ));
 }
 
 class MyApp extends StatefulWidget {
-
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
   var _currentIndex = 0;
-
   final List<Widget> screens = [
     HomeScreen(),
     SearchScreen(),
     FavoriteScreen(),
     ProfileScreen(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,27 +64,26 @@ class _MyAppState extends State<MyApp> {
           items: [
             /// Home
             SalomonBottomBarItem(
-              // icon: Icon(Iconsax.home_1),
-              icon: const Iconify(Ri.home_smile_2_fill, color: Colors.purple),
+              icon: const Iconify(Ri.home_smile_2_fill, color: Colors.blue),
               title: Text("Trang chủ"),
-              selectedColor: Colors.purple,
+              selectedColor: Colors.blue,
             ),
 
             /// Search
             SalomonBottomBarItem(
               icon: const Iconify(
                 Ri.search_eye_fill,
-                color: Colors.orange,
+                color: Colors.blue,
               ),
               title: Text("Tìm kiếm"),
-              selectedColor: Colors.orange,
+              selectedColor: Colors.blue,
             ),
 
             /// Favorite
             SalomonBottomBarItem(
-              icon: Iconify(Ri.heart_fill, color: Colors.red),
+              icon: Iconify(Ri.heart_fill, color: Colors.blue),
               title: Text("Yêu thích"),
-              selectedColor: Colors.red,
+              selectedColor: Colors.blue,
             ),
 
             /// Profile
