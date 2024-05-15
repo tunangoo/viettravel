@@ -1,21 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
-import '../widgets/edit_text_field.dart';
+import 'package:viettravel/services/api_handle.dart';
+import 'package:viettravel/widgets/custom_text_field.dart';
+import '../models/user_model.dart';
+import 'package:viettravel/widgets/custom_noti.dart';
 
 class EditScreen extends StatefulWidget {
+  final UserModel user;
+  final Function(UserModel) updateUser;
+
+  const EditScreen({
+    Key? key,
+    required this.user,
+    required this.updateUser,
+  }) : super(key: key);
+
   @override
   _EditScreenState createState() => _EditScreenState();
 }
 
 class _EditScreenState extends State<EditScreen> {
-  TextEditingController _fullNameController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _phonenumberController = TextEditingController();
-  TextEditingController _locationController = TextEditingController();
+  final TextEditingController _fullNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phonenumberController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+
+  @override
+  initState() {
+    super.initState();
+    setState(() {
+      _fullNameController.text = widget.user.fullName;
+      _emailController.text = widget.user.email;
+      _phonenumberController.text = widget.user.phoneNumber ?? "";
+      _addressController.text = widget.user.address ?? "";
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: AppBar(
@@ -28,16 +51,35 @@ class _EditScreenState extends State<EditScreen> {
         ),
         title: Text(
           "Thông tin cá nhân",
-          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-            fontSize: 23,
-            fontWeight: FontWeight.bold,
-          ),
+          style: Theme.of(context).textTheme.headlineMedium,
         ),
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              //call api cập nhật thông tin
+              UserModel updatedUser = UserModel(
+                  fullName: _fullNameController.text,
+                  phoneNumber: _phonenumberController.text,
+                  email: _emailController.text,
+                  address: _addressController.text,
+              );
+              updateUserInfo(
+                  updatedUser
+              ).then((response) {
+                if (response.statusCode == 200) {
+                  widget.user.fullName = _fullNameController.text;
+                  widget.user.phoneNumber = _phonenumberController.text;
+                  widget.user.email = _emailController.text;
+                  widget.user.address = _addressController.text;
+                  widget.updateUser(widget.user);
+                  customNotiSuccess(context, response.message);
+                } else {
+                  customNotiError(context, response.message);
+                }
+              });
+            },
             child: Text(
-              'Lưu',
+              'Cập nhật',
               style: TextStyle(
                 color: Colors.blue,
                 fontSize: 20.0,
@@ -49,30 +91,38 @@ class _EditScreenState extends State<EditScreen> {
       body: Container(
         child: ListView(
           children: [
-            Center(
-              child: SizedBox(
-                width: 110,
-                height: 110,
-                child: ClipOval(
-                  child: Image.asset(
-                    "assets/images/profile.png",
-                    height: double.infinity,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+            Container(
+              height: screenHeight * 0.2,
+              width: screenWidth,
+              child: Image.asset(
+                "assets/images/profile.png",
+                fit: BoxFit.fitHeight,
               ),
             ),
-            Center(
-              child: Text(
-                "Your Name",
-                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  fontSize: 30, // Override specific properties if needed
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
+            // Center(
+            //   child: SizedBox(
+            //     width: screenWidth*0.3,
+            //     height: screenHeight,
+            //     child: ClipOval(
+            //       child: Image.asset(
+            //         "assets/images/profile.png",
+            //         height: double.infinity,
+            //         width: double.infinity,
+            //         fit: BoxFit.cover,
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            // Center(
+            //   child: Text(
+            //     "Your Name",
+            //     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+            //       fontSize: 30, // Override specific properties if needed
+            //       color: Colors.black,
+            //       fontWeight: FontWeight.bold,
+            //     ),
+            //   ),
+            // ),
             Padding(
               padding: const EdgeInsets.only(left: 100, right: 100),
               child: TextButton(
@@ -103,7 +153,7 @@ class _EditScreenState extends State<EditScreen> {
             Center(
               child: Padding(
                 padding: const EdgeInsets.only(left: 15, right: 10),
-                child: EditTextField(
+                child: CustomTextField(
                   hintText: 'Họ và tên',
                   controller: _fullNameController,
                   keyboardType: TextInputType.text,
@@ -128,7 +178,7 @@ class _EditScreenState extends State<EditScreen> {
             Center(
               child: Padding(
                 padding: const EdgeInsets.only(left: 15, right: 10),
-                child: EditTextField(
+                child: CustomTextField(
                   hintText: 'Email',
                   controller: _emailController,
                   keyboardType: TextInputType.text,
@@ -153,7 +203,7 @@ class _EditScreenState extends State<EditScreen> {
             Center(
               child: Padding(
                 padding: const EdgeInsets.only(left: 15, right: 10),
-                child: EditTextField(
+                child: CustomTextField(
                   hintText: 'Số điện thoại',
                   controller: _phonenumberController,
                   keyboardType: TextInputType.text,
@@ -178,9 +228,9 @@ class _EditScreenState extends State<EditScreen> {
             Center(
               child: Padding(
                 padding: const EdgeInsets.only(left: 15, right: 10),
-                child: EditTextField(
+                child: CustomTextField(
                   hintText: 'Địa chỉ',
-                  controller: _locationController,
+                  controller: _addressController,
                   keyboardType: TextInputType.text,
                 ),
               ),

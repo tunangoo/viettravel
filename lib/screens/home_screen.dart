@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:viettravel/screens/all_places_screen.dart';
 import 'package:viettravel/widgets/recommended_places.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+
+  const HomeScreen({
+    Key? key
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,22 +16,23 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
         title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text("Xin chào"),
-            Text(
-                "Tên người dùng",
-              style: Theme.of(context).textTheme.labelMedium,
-            )
-          ]
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text("Xin chào"),
+              // Text(
+              //   userFullName, // Hiển thị tên người dùng từ đối tượng user
+              //   "tên người dùng",
+              //   style: Theme.of(context).textTheme.labelMedium,
+              // )
+            ]
         ),
         actions: [
-          IconButton(onPressed: () {},
-              icon: const Icon(Icons.notifications_outlined),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.notifications_outlined),
           ),
-          Padding(padding: EdgeInsets.all(8.0))
+          const Padding(padding: EdgeInsets.all(8.0))
         ],
-
       ),
       body: ListView(
         padding: const EdgeInsets.all(14),
@@ -38,7 +41,7 @@ class HomeScreen extends StatelessWidget {
           Row(
             children: [
               Text(
-                  "Khám phá khắp \n Việt Nam !",
+                "Khám phá khắp \n Việt Nam !",
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
             ],
@@ -48,15 +51,15 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                  "Gợi ý cho bạn",
-                  style: Theme.of(context).textTheme.titleMedium,
+                "Gợi ý cho bạn",
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               TextButton(
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const AllPlacesScreen()),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   // MaterialPageRoute(builder: (context) => const AllPlacesScreen()),
+                    // );
                   },
                   child: const Text(
                       "Xem tất cả",
