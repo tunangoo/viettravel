@@ -36,7 +36,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
       final response = await getPlaceDetail(_placeId);
       if (response.statusCode == 200) {
         setState(() {
-          _placeDetailModel = PlaceDetailModel.fromJson(jsonDecode(response.body));
+          _placeDetailModel = PlaceDetailModel.fromJson(response.body);
           _isLoading = false;
         });
       } else {
@@ -104,7 +104,6 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
             //   controller: _pageController,
             //   itemCount: _placeDetailModel!.images.length,
             //   itemBuilder: (context, index) {
-            //     print(index);
             //     return Container(
             //       height: screenHeight * 0.4, // Sử dụng chiều cao cố định cho Container
             //       width: screenWidth * 0.4, // Sử dụng chiều rộng của màn hình cho Container
@@ -157,7 +156,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
                               Row(
                                 children: [
                                   RatingBarIndicator(
-                                    rating: 5.0, // Số sao bạn muốn hiển thị
+                                    rating: _placeDetailModel!.rating, // Số sao bạn muốn hiển thị
                                     itemBuilder: (context, index) => Icon(
                                       Icons.star,
                                       color: Colors.amber,
