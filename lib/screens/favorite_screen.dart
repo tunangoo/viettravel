@@ -30,11 +30,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     try {
       final response = await getFavoritePlaces();
       if (response.statusCode == 200) {
-        print(response.body);
         List<dynamic> jsonData = jsonDecode(response.body);
         setState(() {
           favoritePlaces = jsonData.map((item) => PlaceSummaryModel.fromJson(item)).toList();
-          print(favoritePlaces![0]);
         });
       } else {
         // Handle error response
@@ -74,7 +72,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                (place) => PlaceItemWidget(
                                    place: place,
                                    onPressed: () {
-                                     print(place.placeId);
                                      Navigator.push(
                                        context,
                                        PageRouteBuilder(
