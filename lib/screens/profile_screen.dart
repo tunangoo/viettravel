@@ -1,9 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:viettravel/screens/edit_screen.dart';
 import 'package:viettravel/services/api_handle.dart';
 
+import '../helpers/navigator_help.dart';
 import '../models/user_model.dart';
 import '../widgets/profile_menu_widget.dart';
 
@@ -61,26 +60,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.push(
+              navigatorPush(
                 context,
-                PageRouteBuilder(
-                  transitionDuration: Duration(milliseconds: 500),
-                  pageBuilder: (context, animation, secondaryAnimation) {
-                    return EditScreen(user: user, updateUser: _updateUser,);
-                  },
-                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                    const begin = Offset(1.0, 0.0);
-                    const end = Offset.zero;
-                    const curve = Curves.ease;
-
-                    var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-                    return SlideTransition(
-                      position: animation.drive(tween),
-                      child: child,
-                    );
-                  },
-                ),
+                EditScreen(user: user, updateUser: _updateUser),
               );
             },
             icon: Icon(Icons.border_color_outlined, color: Colors.lightBlue),
@@ -121,7 +103,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             Center(
               child: Text(
-                user.fullName,
+                (user != null) ? user!.fullName : '',
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                   fontSize: 30,
                   color: Colors.black,
@@ -130,7 +112,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             Text(
-              user.email,
+              (user != null) ? user!.email : '',
               style: TextStyle(color: Colors.grey, fontSize: 15),
             ),
             const SizedBox(height: 20),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:viettravel/models/all_places_model.dart';
-import 'package:viettravel/screens/place_detail_screen.dart';
 class AllPlaces extends StatelessWidget {
   const AllPlaces({Key? key}) : super(key: key);
 

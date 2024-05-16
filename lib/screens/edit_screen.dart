@@ -21,7 +21,7 @@ class EditScreen extends StatefulWidget {
 class _EditScreenState extends State<EditScreen> {
   final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _phonenumberController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
 
   @override
@@ -30,7 +30,7 @@ class _EditScreenState extends State<EditScreen> {
     setState(() {
       _fullNameController.text = widget.user.fullName;
       _emailController.text = widget.user.email;
-      _phonenumberController.text = widget.user.phoneNumber ?? "";
+      _phoneNumberController.text = widget.user.phoneNumber ?? "";
       _addressController.text = widget.user.address ?? "";
     });
   }
@@ -59,7 +59,7 @@ class _EditScreenState extends State<EditScreen> {
               //call api cập nhật thông tin
               UserModel updatedUser = UserModel(
                   fullName: _fullNameController.text,
-                  phoneNumber: _phonenumberController.text,
+                  phoneNumber: _phoneNumberController.text,
                   email: _emailController.text,
                   address: _addressController.text,
               );
@@ -68,7 +68,7 @@ class _EditScreenState extends State<EditScreen> {
               ).then((response) {
                 if (response.statusCode == 200) {
                   widget.user.fullName = _fullNameController.text;
-                  widget.user.phoneNumber = _phonenumberController.text;
+                  widget.user.phoneNumber = _phoneNumberController.text;
                   widget.user.email = _emailController.text;
                   widget.user.address = _addressController.text;
                   widget.updateUser(widget.user);
@@ -123,8 +123,8 @@ class _EditScreenState extends State<EditScreen> {
             //     ),
             //   ),
             // ),
-            Padding(
-              padding: const EdgeInsets.only(left: 100, right: 100),
+            Align(
+              alignment: Alignment.center,
               child: TextButton(
                 onPressed: () {},
                 child: Text(
@@ -205,7 +205,7 @@ class _EditScreenState extends State<EditScreen> {
                 padding: const EdgeInsets.only(left: 15, right: 10),
                 child: CustomTextField(
                   hintText: 'Số điện thoại',
-                  controller: _phonenumberController,
+                  controller: _phoneNumberController,
                   keyboardType: TextInputType.text,
                 ),
               ),

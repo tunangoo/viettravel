@@ -6,6 +6,7 @@ class PlaceDetailModel {
   String description;
   List<String> images;
   double rating;
+  bool favorite;
 
   PlaceDetailModel({
     required this.placeId,
@@ -15,6 +16,7 @@ class PlaceDetailModel {
     required this.description,
     required this.images,
     required this.rating,
+    required this.favorite
   });
 
   factory PlaceDetailModel.fromJson(Map<String, dynamic> json) {
@@ -26,6 +28,7 @@ class PlaceDetailModel {
       description: json['description'] ?? '',
       images: json['images'] != null ? List<String>.from(json['images']) : [],
       rating: json['rating'] ?? 0,
+      favorite: json['favorite'] ?? false,
     );
   }
 }

@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:viettravel/models/place_summary_model.dart';
+import 'package:viettravel/screens/place_detail_screen.dart';
+
+import '../helpers/navigator_help.dart';
 
 class PlaceItemWidget extends StatelessWidget {
   final PlaceSummaryModel place;
-  final VoidCallback onPressed;
 
   const PlaceItemWidget({
     Key? key,
     required this.place,
-    required this.onPressed,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-
     return InkWell(
-      onTap: onPressed,
+      onTap: () {
+        navigatorPush(
+          context,
+          PlaceDetailScreen(placeId: place.placeId),
+        );
+      },
       child: Card(
         elevation: 3,
         margin: EdgeInsets.all(8),
@@ -32,12 +36,11 @@ class PlaceItemWidget extends StatelessWidget {
             children: [
               Container(
                 child: AspectRatio(
-                  aspectRatio: 1, // tỉ lệ khung hình vuông
+                  aspectRatio: 1,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(16),
                     child: Image.network(
                       place.imageUrl,
-                      width: 1000,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
                         return Icon(
@@ -54,13 +57,17 @@ class PlaceItemWidget extends StatelessWidget {
               Text(
                 place.name,
                 style: TextStyle(
-                  fontSize: 15,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Row(
                 children: [
-                  Icon(Icons.location_on_outlined, color: Colors.grey,),
+                  Icon(
+                    Icons.location_on_outlined,
+                    color: Colors.grey,
+                    size: 15,
+                  ),
                   Expanded(
                     child: Text(
                       place.address,
@@ -83,7 +90,7 @@ class PlaceItemWidget extends StatelessWidget {
                       color: Colors.amber,
                     ),
                     itemCount: 5,
-                    itemSize: 20.0, // Kích thước của mỗi ngôi sao
+                    itemSize: 15, // Kích thước của mỗi ngôi sao
                     direction: Axis.horizontal,
                   ),
                   Align(
@@ -91,7 +98,7 @@ class PlaceItemWidget extends StatelessWidget {
                     child: Text(
                       place.rating.toStringAsFixed(1),
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 12,
                         color: Colors.black,
                       ),
                     ),
@@ -100,9 +107,9 @@ class PlaceItemWidget extends StatelessWidget {
               ),
               SizedBox(height: 5,),
               Text(
-                  '${place.price}₫ / Vé', // Thêm giá vé
+                  '${place.price}₫/Vé', // Thêm giá vé
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 14,
                     color: Colors.blue,
                   ),
               ),
