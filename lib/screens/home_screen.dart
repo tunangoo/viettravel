@@ -63,6 +63,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 100,
@@ -109,43 +111,62 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: ListView(
-        padding: const EdgeInsets.all(14),
         children: [
-          SizedBox(height: 20),
-          Row(
-            children: [
-              Text(
-                "Khám phá khắp \nViệt Nam !",
-                style: TextStyle(
-                  fontSize: 40,
+          SizedBox(height: 10),
+          Padding(
+            padding: EdgeInsets.only(left: 30, right: 14),
+            child: Text(
+              "Khám phá khắp \nViệt Nam!",
+              style: TextStyle(
+                fontSize: 30,
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
+          Padding(
+            padding: EdgeInsets.only(left: 14, right: 14),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Gợi ý cho bạn",
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
                 ),
-              ),
-            ],
+                TextButton(
+                    onPressed: () {
+                      navigatorPush(
+                        context,
+                        RecommendPlaceScreen(recommendPlaces: recommendPlaces),
+                      );
+                    },
+                    child: const Text(
+                        "Xem tất cả",
+                        style: TextStyle(
+                          color: Colors.lightBlueAccent,
+                          fontSize: 15,
+                        ),
+                    )
+                )
+              ],
+           ),
           ),
-          const SizedBox(height: 40),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Gợi ý cho bạn",
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              TextButton(
-                  onPressed: () {
-                    navigatorPush(
-                      context,
-                      RecommendPlaceScreen(recommendPlaces: recommendPlaces),
-                    );
-                  },
-                  child: const Text(
-                      "Xem tất cả",
-                      style: TextStyle(color: Colors.lightBlueAccent)
-                  )
-              )
-            ],
+          Container(
+            height: 330, // Chiều cao cố định cho danh sách ngang
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: recommendPlaces.take(5).map(
+                (place) => Container(
+                  width: screenWidth * 0.57,
+                  height: double.infinity,
+                  child: PlaceItemWidget(
+                    place: place,
+                  ),
+                ),
+              ).toList(),
+            ),
           ),
-          const SizedBox(height: 10),
-          const RecommendedPlaces(),
         ],
       )
     );

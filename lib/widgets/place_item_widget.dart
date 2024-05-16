@@ -36,12 +36,11 @@ class PlaceItemWidget extends StatelessWidget {
             children: [
               Container(
                 child: AspectRatio(
-                  aspectRatio: 1, // tỉ lệ khung hình vuông
+                  aspectRatio: 1,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(16),
                     child: Image.network(
                       place.imageUrl,
-                      width: 1000,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
                         return Icon(
