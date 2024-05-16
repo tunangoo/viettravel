@@ -1,10 +1,9 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:viettravel/screens/free_place_screen.dart';
 import 'package:viettravel/screens/recommend_place_screen.dart';
 import 'package:viettravel/widgets/place_item_widget.dart';
-import 'package:viettravel/widgets/recommended_places.dart';
 import '../helpers/navigator_help.dart';
 import '../models/place_summary_model.dart';
 import '../models/user_model.dart';
@@ -22,12 +21,14 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   var user;
   List<PlaceSummaryModel> recommendPlaces = [];
+  List<PlaceSummaryModel> freePlaces = [];
 
   @override
   void initState() {
     super.initState();
     _fetchGetUserInfo();
     _fetchGetRecommendPlaces();
+    _fetchGetFreePlaces();
   }
 
   Future<void> _fetchGetUserInfo() async {
@@ -52,6 +53,22 @@ class _HomeScreenState extends State<HomeScreen> {
         List<dynamic> jsonData = jsonDecode(response.body);
         setState(() {
           recommendPlaces = jsonData.map((item) => PlaceSummaryModel.fromJson(item)).toList();
+        });
+      } else {
+        // Handle error response
+      }
+    } catch (error) {
+      // Handle error
+    }
+  }
+
+  Future<void> _fetchGetFreePlaces() async {
+    try {
+      final response = await getFreePlaces();
+      if(response.statusCode == 200) {
+        List<dynamic> jsonData = jsonDecode(response.body);
+        setState(() {
+          freePlaces = jsonData.map((item) => PlaceSummaryModel.fromJson(item)).toList();
         });
       } else {
         // Handle error response
@@ -157,6 +174,52 @@ class _HomeScreenState extends State<HomeScreen> {
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: recommendPlaces.take(5).map(
+                (place) => Container(
+                  width: screenWidth * 0.57,
+                  height: double.infinity,
+                  child: PlaceItemWidget(
+                    place: place,
+                  ),
+                ),
+              ).toList(),
+            ),
+          ),
+
+          const SizedBox(height: 20),
+          Padding(
+            padding: EdgeInsets.only(left: 14, right: 14),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Địa điểm miễn phí",
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+                TextButton(
+                    onPressed: () {
+                      navigatorPush(
+                        context,
+                        FreePlaceScreen(freePlaces: freePlaces),
+                      );
+                    },
+                    child: const Text(
+                      "Xem tất cả",
+                      style: TextStyle(
+                        color: Colors.lightBlueAccent,
+                        fontSize: 15,
+                      ),
+                    )
+                )
+              ],
+            ),
+          ),
+          Container(
+            height: 330, // Chiều cao cố định cho danh sách ngang
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: freePlaces.take(5).map(
                 (place) => Container(
                   width: screenWidth * 0.57,
                   height: double.infinity,

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:viettravel/models/place_summary_model.dart';
 import 'package:viettravel/widgets/place_item_widget.dart';
 
-class RecommendPlaceScreen extends StatelessWidget {
-  final List<PlaceSummaryModel> recommendPlaces;
+class FreePlaceScreen extends StatelessWidget {
+  final List<PlaceSummaryModel> freePlaces;
 
-  const RecommendPlaceScreen({
+  const FreePlaceScreen({
     Key? key,
-    required this.recommendPlaces,
+    required this.freePlaces,
   }) : super(key: key);
 
   @override
@@ -16,7 +16,7 @@ class RecommendPlaceScreen extends StatelessWidget {
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            "Địa điểm gợi ý",
+            "Địa điểm miễn phí",
             style: Theme.of(context).textTheme.headlineMedium,
           ),
         ),
@@ -39,7 +39,7 @@ class RecommendPlaceScreen extends StatelessWidget {
                             mainAxisSpacing: 10,
                             childAspectRatio: 0.57
                         ),
-                        children: recommendPlaces.map(
+                        children: freePlaces.map(
                                 (place) => PlaceItemWidget(
                               place: place,
                             )

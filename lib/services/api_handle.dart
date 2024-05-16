@@ -166,3 +166,26 @@ Future<ResponseHandle> getRecommendPlaces() async {
     );
   }
 }
+
+Future<ResponseHandle> getFreePlaces() async {
+  print('get free places');
+  try {
+    final response = await http.get(
+      Uri.parse('$baseApiUrl/place/free'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=utf-8',
+        'Authorization': 'Bearer $accessToken',
+      },
+    );
+    print(response.body);
+    return ResponseHandle(
+        statusCode: response.statusCode,
+        body: response.body
+    );
+  } catch (error) {
+    return ResponseHandle(
+      statusCode: 500,
+      message: 'Có lỗi xảy ra',
+    );
+  }
+}

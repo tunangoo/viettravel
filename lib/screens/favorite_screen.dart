@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:viettravel/screens/place_detail_screen.dart';
 import 'package:viettravel/services/api_handle.dart';
 import 'package:viettravel/widgets/place_item_widget.dart';
 
@@ -46,11 +45,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Center(
-              child: Text(
-                "Địa điểm yêu thích",
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
+          title: Text(
+            "Địa điểm yêu thích",
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
         ),
         body: Container(
