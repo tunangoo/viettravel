@@ -236,7 +236,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               onPress: () {},
             ),
             ProfileMenuWidget(
-              title: "Chuyến đi trước",
+              title: "Vé đã đặt",
               icon: Icons.card_travel,
               onPress: () {},
             ),

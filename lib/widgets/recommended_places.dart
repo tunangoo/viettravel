@@ -18,75 +18,62 @@ class RecommendedPlaces extends StatelessWidget {
           width: 220,
           child: Card(
             elevation: 0.4,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(12),
-              ),
+            margin: EdgeInsets.all(8),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+              side: BorderSide(color: Colors.lightGreen)
             ),
-            child: InkWell(
-              borderRadius: BorderRadius.circular(12),
-              onTap: () {
-                // Navigator.push(
-                //   context,
-                //   // MaterialPageRoute(builder: (context) => PlaceDetailsScreen(image:recommendedPlaces[index].image)),
-                // );
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image(
-                        image: AssetImage(recommendedPlaces[index].image),
-                        width: double.maxFinite,
-                        fit: BoxFit.cover,
-                        height: 263,
-                      )
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    // height: MediaQuery.of(context).size.height,
+                    child: AspectRatio(
+                      aspectRatio: 1, // tỉ lệ khung hình vuông
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: Image.asset(
+                          recommendedPlaces[index].imageUrl,
+                          width: 1000,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
-                    SizedBox(height: 5),
-                    Row(
-                      children: [
-                        Text(
-                          recommendedPlaces[index].name,
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const Spacer(),
-                        Text(
-                          recommendedPlaces[index].rating.toString(),
-                          style: TextStyle(
-                            fontSize: 12,
-                          ),
-                        ),
-                        Icon(
-                            Icons.favorite,
-                            color: Colors.pinkAccent.shade400,
-                            size: 14,
-                        ),
-                      ],
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    recommendedPlaces[index].name,
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
                     ),
-                    SizedBox(height: 1),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.location_on,
-                          color: Colors.lightBlueAccent,
-                          size: 16,
+                  ),
+                  Row(
+                    children: [
+                      Icon(Icons.location_on_outlined, color: Colors.grey,),
+                      Text(
+                        recommendedPlaces[index].imageUrl,
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey,
                         ),
-                        const SizedBox(width: 5),
-                        Text(
-                          recommendedPlaces[index].location,
-                          style: TextStyle(
-                            fontSize: 12,
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text( recommendedPlaces[index].imageUrl),
+                      Icon(
+                        Icons.favorite,
+                        color: Colors.pinkAccent.shade400,
+                        size: 14,
+                      ),
+                    ],
+                  ),
+                  Text( recommendedPlaces[index].imageUrl),
+                ],
               ),
             ),
           ),

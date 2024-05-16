@@ -1,45 +1,66 @@
 class RecommendedPlaceModel {
+  final int placeId;
   final String name;
-  final String image;
-  final int rating;
-  final String location;
+  final String address;
+  final int price;
+  final String imageUrl;
+  final bool favorite;
+  final double rating;
   RecommendedPlaceModel({
+    required this.placeId,
     required this.name,
-    required this.image,
+    required this.address,
+    required this.price,
+    required this.imageUrl,
+    required this.favorite,
     required this.rating,
-    required this.location,
 });
 }
 
 List<RecommendedPlaceModel> recommendedPlaces = [
   RecommendedPlaceModel(
+      placeId: 1,
       name: "Tên địa điểm",
-      image: "assets/images/place1.jpg",
+      address: "",
+      price: 45,
+      imageUrl: "assets/images/place1.jpg",
+      favorite: true,
       rating: 999,
-      location: "Địa chỉ"
   ),
   RecommendedPlaceModel(
-      name: "Tên địa điểm",
-      image: "assets/images/place1.jpg",
-      rating: 999,
-      location: "Địa chỉ"
+    placeId: 1,
+    name: "Tên địa điểm",
+    address: "",
+    price: 45,
+    imageUrl: "assets/images/place1.jpg",
+    favorite: true,
+    rating: 999,
   ),
   RecommendedPlaceModel(
-      name: "Tên địa điểm",
-      image: "assets/images/place1.jpg",
-      rating: 999,
-      location: "Địa chỉ"
+    placeId: 1,
+    name: "Tên địa điểm",
+    address: "",
+    price: 45,
+    imageUrl: "assets/images/place1.jpg",
+    favorite: true,
+    rating: 999,
   ),
   RecommendedPlaceModel(
-      name: "Tên địa điểm",
-      image: "assets/images/place1.jpg",
-      rating: 999,
-      location: "Địa chỉ"
+    placeId: 1,
+    name: "Tên địa điểm",
+    address: "",
+    price: 45,
+    imageUrl: "assets/images/place1.jpg",
+    favorite: true,
+    rating: 999,
   ),
   RecommendedPlaceModel(
-      name: "Tên địa điểm",
-      image: "assets/images/place1.jpg",
-      rating: 999,
-      location: "Địa chỉ"
+    placeId: 1,
+    name: "Tên địa điểm",
+    address: "",
+    price: 45,
+    imageUrl: "assets/images/place1.jpg",
+    favorite: true,
+    rating: 999,
   ),
 ];
