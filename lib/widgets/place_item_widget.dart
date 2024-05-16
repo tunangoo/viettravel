@@ -54,13 +54,17 @@ class PlaceItemWidget extends StatelessWidget {
               Text(
                 place.name,
                 style: TextStyle(
-                  fontSize: 15,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Row(
                 children: [
-                  Icon(Icons.location_on_outlined, color: Colors.grey,),
+                  Icon(
+                    Icons.location_on_outlined,
+                    color: Colors.grey,
+                    size: 15,
+                  ),
                   Expanded(
                     child: Text(
                       place.address,
@@ -83,7 +87,7 @@ class PlaceItemWidget extends StatelessWidget {
                       color: Colors.amber,
                     ),
                     itemCount: 5,
-                    itemSize: 20.0, // Kích thước của mỗi ngôi sao
+                    itemSize: 15, // Kích thước của mỗi ngôi sao
                     direction: Axis.horizontal,
                   ),
                   Align(
@@ -91,7 +95,7 @@ class PlaceItemWidget extends StatelessWidget {
                     child: Text(
                       place.rating.toStringAsFixed(1),
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 12,
                         color: Colors.black,
                       ),
                     ),
@@ -100,9 +104,9 @@ class PlaceItemWidget extends StatelessWidget {
               ),
               SizedBox(height: 5,),
               Text(
-                  '${place.price}₫ / Vé', // Thêm giá vé
+                  '${place.price}₫/Vé', // Thêm giá vé
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 14,
                     color: Colors.blue,
                   ),
               ),

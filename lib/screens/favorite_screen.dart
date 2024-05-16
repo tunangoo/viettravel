@@ -50,29 +50,32 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         ),
         body: Container(
           padding: EdgeInsets.only(top: 16.0, left: 8.0, right: 8.0, bottom: 16.0),
-          child: favoritePlaces.isEmpty ?? true
-              ? Center(
-              child: Text(
-                "Không có địa điểm yêu thích",
-                style: TextStyle(fontSize: 30),
-              )
-          )
-              : Column(
+          child: Column(
             children: [
               Expanded(
                 child: SizedBox(
                   width: double.infinity,
                   height: 500,
                   child: ScrollConfiguration(
-                      behavior: const ScrollBehavior(),
-                      child: GridView(
+                    behavior: const ScrollBehavior(),
+                    child: favoritePlaces.isEmpty ?? true
+                    ? Center(
+                      child: Text(
+                        "Không có địa điểm yêu thích",
+                        style: TextStyle(
+                          fontSize: 25,
+                          color: Colors.grey,
+                        ),
+                      )
+                    )
+                   : GridView(
                         scrollDirection: Axis.vertical,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             // mainAxisExtent: 280,
                             crossAxisSpacing: 10,
                             mainAxisSpacing: 10,
-                            childAspectRatio: 0.5 // cái này sửa lại cho đúng tỉ lệ của máy pixel 3A API 34
+                            childAspectRatio: 0.55 // cái này sửa lại cho đúng tỉ lệ của máy pixel 3A API 34
                         ),
                         children: favoritePlaces.map(
                                 (place) => PlaceItemWidget(

@@ -99,40 +99,14 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
               //       : 'assets/images/place1.jpg',
               //   fit: BoxFit.cover,
               // ),
-              child: PageView(
-                // itemCount: _placeDetailModel!.images.length,
-                // itemBuilder: (context, index) {
-                //   return Image.network(
-                //     _placeDetailModel!.images[index],
-                //     fit: BoxFit.cover,
-                //   );
-                // },
-                children: [
-                  Image.network(
-                    _placeDetailModel!.images.isNotEmpty
-                        ? _placeDetailModel!.images[0]
-                        : 'assets/images/place1.jpg',
+              child: PageView.builder(
+                itemCount: _placeDetailModel!.images.length,
+                itemBuilder: (context, index) {
+                  return Image.network(
+                    _placeDetailModel!.images[index],
                     fit: BoxFit.cover,
-                  ),
-                  Image.network(
-                    _placeDetailModel!.images.isNotEmpty
-                        ? _placeDetailModel!.images[1]
-                        : 'assets/images/place1.jpg',
-                    fit: BoxFit.cover,
-                  ),
-                  Image.network(
-                    _placeDetailModel!.images.isNotEmpty
-                        ? _placeDetailModel!.images[2]
-                        : 'assets/images/place1.jpg',
-                    fit: BoxFit.cover,
-                  ),
-                  Image.network(
-                    _placeDetailModel!.images.isNotEmpty
-                        ? _placeDetailModel!.images[3]
-                        : 'assets/images/place1.jpg',
-                    fit: BoxFit.cover,
-                  ),
-                ]
+                  );
+                },
               ),
             ),
             Container(
@@ -146,13 +120,12 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
                       children: [
                         Container(
                           child: Column(
-                            crossAxisAlignment:
-                            CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 _placeDetailModel!.name,
                                 style: TextStyle(
-                                  fontSize: 32,
+                                  fontSize: 27,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black87,
                                 ),
@@ -160,36 +133,39 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
                               Row(
                                 children: [
                                   Icon(Icons.location_on_outlined),
-                                  SizedBox(width: 8), // thêm khoảng cách giữa icon và text
-                                  Wrap(
-                                    children: [
-                                      Text(
-                                        _placeDetailModel!.address,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ],
+                                  Text(
+                                    _placeDetailModel!.address,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                    ),
                                   ),
                                 ],
                               ),
+                              SizedBox(height: 5,),
                               Row(
                                 children: [
                                   RatingBarIndicator(
-                                    rating: _placeDetailModel!.rating, // Số sao bạn muốn hiển thị
+                                    rating: _placeDetailModel!.rating,
                                     itemBuilder: (context, index) => Icon(
                                       Icons.star,
                                       color: Colors.amber,
                                     ),
                                     itemCount: 5,
-                                    itemSize: 30.0, // Kích thước của mỗi ngôi sao
+                                    itemSize: 25,
                                     direction: Axis.horizontal,
+                                  ),
+                                  Text(
+                                    _placeDetailModel!.rating.toStringAsFixed(1),
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                    ),
                                   ),
                                   Align(
                                     alignment: Alignment.centerRight,
                                     child: Text(
-                                      '   ${_placeDetailModel!.price}₫ / Vé', // Thêm giá vé
+                                      '   ${_placeDetailModel!.price}₫ / Vé',
                                       style: TextStyle(
                                         fontSize: 16,
                                         color: Colors.orange,
@@ -211,7 +187,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
                           "Giới thiệu điểm đến",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 25,
+                            fontSize: 23,
                           ),
                         ),
                       ),
@@ -225,6 +201,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
                           child: Text(
                             _placeDetailModel!.description,
                             style: TextStyle(fontSize: 15),
+                            textAlign: TextAlign.justify,
                           ),
                         ),
                       ),
