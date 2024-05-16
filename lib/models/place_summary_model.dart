@@ -5,6 +5,7 @@ class PlaceSummaryModel {
   int price;
   String imageUrl;
   bool favorite;
+  double rating;
 
   PlaceSummaryModel({
     required this.placeId,
@@ -13,6 +14,7 @@ class PlaceSummaryModel {
     required this.price,
     required this.imageUrl,
     required this.favorite,
+    required this.rating,
   });
 
   factory PlaceSummaryModel.fromJson(Map<String, dynamic> json) {
@@ -23,6 +25,7 @@ class PlaceSummaryModel {
       price: json['price'] ?? 0,
       imageUrl: json['imageUrl'] ?? '',
       favorite: json['favorite'] ?? false,
+      rating: json['rating'] ?? 0,
     );
   }
 }

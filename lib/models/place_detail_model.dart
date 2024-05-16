@@ -5,6 +5,7 @@ class PlaceDetailModel {
   int price;
   String description;
   List<String> images;
+  double rating;
 
   PlaceDetailModel({
     required this.placeId,
@@ -13,6 +14,7 @@ class PlaceDetailModel {
     required this.price,
     required this.description,
     required this.images,
+    required this.rating,
   });
 
   factory PlaceDetailModel.fromJson(Map<String, dynamic> json) {
@@ -23,6 +25,7 @@ class PlaceDetailModel {
       price: json['price'] ?? 0,
       description: json['description'] ?? '',
       images: json['images'] != null ? List<String>.from(json['images']) : [],
+      rating: json['rating'] ?? 0,
     );
   }
 }

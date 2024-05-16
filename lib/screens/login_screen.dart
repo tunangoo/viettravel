@@ -148,7 +148,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () {
-                        print("nhan dang nhap");
                         if(_usernameController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
                           logIn(
                             _usernameController.text,

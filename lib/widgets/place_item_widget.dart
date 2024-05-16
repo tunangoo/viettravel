@@ -77,7 +77,7 @@ class PlaceItemWidget extends StatelessWidget {
               Row(
                 children: [
                   RatingBarIndicator(
-                    rating: 5.0, // Số sao bạn muốn hiển thị
+                    rating: place.rating, // Số sao bạn muốn hiển thị
                     itemBuilder: (context, index) => Icon(
                       Icons.star,
                       color: Colors.amber,
@@ -89,7 +89,7 @@ class PlaceItemWidget extends StatelessWidget {
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Text(
-                      ' 5.0', // Thêm giá vé
+                      place.rating.toStringAsFixed(1),
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.black,
