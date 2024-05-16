@@ -93,27 +93,48 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
             Container(
               height: screenHeight * 0.4,
               width: screenWidth,
-              child: Image.network(
-                _placeDetailModel!.images.isNotEmpty
-                    ? _placeDetailModel!.images[2]
-                    : 'assets/images/place1.jpg',
-                fit: BoxFit.cover,
+              // child: Image.network(
+              //   _placeDetailModel!.images.isNotEmpty
+              //       ? _placeDetailModel!.images[0]
+              //       : 'assets/images/place1.jpg',
+              //   fit: BoxFit.cover,
+              // ),
+              child: PageView(
+                // itemCount: _placeDetailModel!.images.length,
+                // itemBuilder: (context, index) {
+                //   return Image.network(
+                //     _placeDetailModel!.images[index],
+                //     fit: BoxFit.cover,
+                //   );
+                // },
+                children: [
+                  Image.network(
+                    _placeDetailModel!.images.isNotEmpty
+                        ? _placeDetailModel!.images[0]
+                        : 'assets/images/place1.jpg',
+                    fit: BoxFit.cover,
+                  ),
+                  Image.network(
+                    _placeDetailModel!.images.isNotEmpty
+                        ? _placeDetailModel!.images[1]
+                        : 'assets/images/place1.jpg',
+                    fit: BoxFit.cover,
+                  ),
+                  Image.network(
+                    _placeDetailModel!.images.isNotEmpty
+                        ? _placeDetailModel!.images[2]
+                        : 'assets/images/place1.jpg',
+                    fit: BoxFit.cover,
+                  ),
+                  Image.network(
+                    _placeDetailModel!.images.isNotEmpty
+                        ? _placeDetailModel!.images[3]
+                        : 'assets/images/place1.jpg',
+                    fit: BoxFit.cover,
+                  ),
+                ]
               ),
             ),
-            // PageView.builder(
-            //   controller: _pageController,
-            //   itemCount: _placeDetailModel!.images.length,
-            //   itemBuilder: (context, index) {
-            //     return Container(
-            //       height: screenHeight * 0.4, // Sử dụng chiều cao cố định cho Container
-            //       width: screenWidth * 0.4, // Sử dụng chiều rộng của màn hình cho Container
-            //       child: Image.network(
-            //         _placeDetailModel!.images[index],
-            //         fit: BoxFit.cover, // Thiết lập fit cho Image
-            //       ),
-            //     );
-            //   },
-            // ),
             Container(
               padding: EdgeInsets.only(
                   top: screenHeight * 0.41, left: 10, right: 10),
