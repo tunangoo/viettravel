@@ -14,6 +14,7 @@ import 'package:viettravel/helpers/app_constant.dart';
 import 'package:viettravel/screens/all_places_screen.dart';
 import 'package:viettravel/services/api_handle.dart';
 import 'package:viettravel/models/user_model.dart';
+import 'package:viettravel/test_screen.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -36,9 +37,28 @@ class _MyAppState extends State<MyApp> {
     ProfileScreen(),
   ];
 
+  // Track the states of each screen
+  final List<GlobalKey<NavigatorState>> _navigatorKeys = [
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
+  ];
+
   @override
   void initState() {
     super.initState();
+  }
+
+  void _onTap(int index) {
+    if (_currentIndex == index) {
+      // If the current tab is tapped again, pop to first route
+      _navigatorKeys[index].currentState?.popUntil((route) => route.isFirst);
+    } else {
+      setState(() {
+        _currentIndex = index;
+      });
+    }
   }
 
   @override
@@ -56,11 +76,20 @@ class _MyAppState extends State<MyApp> {
         ),
         body: IndexedStack(
           index: _currentIndex,
-          children: screens,
+          children: screens.asMap().map((index, screen) {
+            return MapEntry(index, Navigator(
+              key: _navigatorKeys[index],
+              onGenerateRoute: (routeSettings) {
+                return MaterialPageRoute(
+                  builder: (context) => screen,
+                );
+              },
+            ));
+          }).values.toList(),
         ),
         bottomNavigationBar: SalomonBottomBar(
           currentIndex: _currentIndex,
-          onTap: (i) => setState(() => _currentIndex = i),
+          onTap: _onTap,
           items: [
             /// Home
             SalomonBottomBarItem(
