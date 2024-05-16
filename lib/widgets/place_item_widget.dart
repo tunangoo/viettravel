@@ -3,6 +3,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:viettravel/models/place_summary_model.dart';
 import 'package:viettravel/screens/place_detail_screen.dart';
 
+import '../helpers/navigator_help.dart';
+
 class PlaceItemWidget extends StatelessWidget {
   final PlaceSummaryModel place;
 
@@ -15,26 +17,9 @@ class PlaceItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(
+        navigatorPush(
           context,
-          PageRouteBuilder(
-            transitionDuration: Duration(milliseconds: 500),
-            pageBuilder: (context, animation, secondaryAnimation) {
-              return PlaceDetailScreen(placeId: place.placeId);
-            },
-            transitionsBuilder: (context, animation, secondaryAnimation, child) {
-              const begin = Offset(1.0, 0.0);
-              const end = Offset.zero;
-              const curve = Curves.ease;
-
-              var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-              return SlideTransition(
-                position: animation.drive(tween),
-                child: child,
-              );
-            },
-          ),
+          PlaceDetailScreen(placeId: place.placeId),
         );
       },
       child: Card(

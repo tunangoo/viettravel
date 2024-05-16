@@ -7,6 +7,7 @@ import 'package:viettravel/screens/signup_screen.dart';
 import 'package:viettravel/services/login_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../helpers/navigator_help.dart';
 import '../main.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/password_field.dart';
@@ -109,26 +110,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.only(bottom: 40),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.push(
+                        navigatorPush(
                           context,
-                          PageRouteBuilder(
-                            transitionDuration: Duration(milliseconds: 500),
-                            pageBuilder: (context, animation, secondaryAnimation) {
-                              return ForgotPasswordScreen();
-                            },
-                            transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                              const begin = Offset(1.0, 0.0);
-                              const end = Offset.zero;
-                              const curve = Curves.ease;
-
-                              var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-                              return SlideTransition(
-                                position: animation.drive(tween),
-                                child: child,
-                              );
-                            },
-                          ),
+                          ForgotPasswordScreen(),
                         );
                       },
                       child: Text(
@@ -214,26 +198,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
+                        navigatorPush(
                           context,
-                          PageRouteBuilder(
-                            transitionDuration: Duration(milliseconds: 500),
-                            pageBuilder: (context, animation, secondaryAnimation) {
-                              return SignupScreen();
-                            },
-                            transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                              const begin = Offset(1.0, 0.0);
-                              const end = Offset.zero;
-                              const curve = Curves.ease;
-
-                              var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-                              return SlideTransition(
-                                position: animation.drive(tween),
-                                child: child,
-                              );
-                            },
-                          ),
+                          SignupScreen(),
                         );
                       },
                       child: Text(
