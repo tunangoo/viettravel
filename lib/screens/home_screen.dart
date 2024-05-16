@@ -1,6 +1,10 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:viettravel/widgets/place_item_widget.dart';
 import 'package:viettravel/widgets/recommended_places.dart';
+import '../models/place_summary_model.dart';
 import '../models/user_model.dart';
 import 'package:viettravel/services/api_handle.dart';
 
@@ -15,11 +19,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   var user;
+  List<PlaceSummaryModel> recommendPlaces = [];
 
   @override
   void initState() {
     super.initState();
     _fetchGetUserInfo();
+    _fetchGetRecommendPlaces();
   }
 
   Future<void> _fetchGetUserInfo() async {
@@ -28,6 +34,22 @@ class _HomeScreenState extends State<HomeScreen> {
       if (response.statusCode == 200) {
         setState(() {
           user = UserModel.fromJson(response.body);
+        });
+      } else {
+        // Handle error response
+      }
+    } catch (error) {
+      // Handle error
+    }
+  }
+
+  Future<void> _fetchGetRecommendPlaces() async {
+    try {
+      final response = await getRecommendPlaces();
+      if(response.statusCode == 200) {
+        List<dynamic> jsonData = jsonDecode(response.body);
+        setState(() {
+          recommendPlaces = jsonData.map((item) => PlaceSummaryModel.fromJson(item)).toList();
         });
       } else {
         // Handle error response
@@ -55,12 +77,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   children: [
                     ClipOval(
-                      child: Image.asset("assets/images/profile.png",
-                      height: 40,
-                      width: 40,),
+                      child: Image.asset(
+                        "assets/images/profile.png",
+                        height: 40,
+                        width: 40,
+                      ),
                     ),
                     SizedBox(width: 10,),
-                    Center(child: Text("Bui Minh Quan", style: TextStyle(fontSize: 17),))
+                    Center(
+                      child: Text(
+                        (user != null) ? user!.fullName : 'Người dùng',
+                        style: TextStyle(fontSize: 17),
+                      ),
+                    ),
                   ],
                 ),
               ),

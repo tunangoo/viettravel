@@ -58,7 +58,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   height: 500,
                   child: ScrollConfiguration(
                     behavior: const ScrollBehavior(),
-                    child: favoritePlaces.isEmpty ?? true
+                    child: favoritePlaces.length == 0 ?? true
                     ? Center(
                       child: Text(
                         "Không có địa điểm yêu thích",
@@ -75,34 +75,11 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             // mainAxisExtent: 280,
                             crossAxisSpacing: 10,
                             mainAxisSpacing: 10,
-                            childAspectRatio: 0.55 // cái này sửa lại cho đúng tỉ lệ của máy pixel 3A API 34
+                            childAspectRatio: 0.57 // cái này sửa lại cho đúng tỉ lệ của máy pixel 3A API 34
                         ),
                         children: favoritePlaces.map(
                                 (place) => PlaceItemWidget(
                                 place: place,
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    PageRouteBuilder(
-                                      transitionDuration: Duration(milliseconds: 500),
-                                      pageBuilder: (context, animation, secondaryAnimation) {
-                                        return PlaceDetailScreen(placeId: place.placeId);
-                                      },
-                                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                                        const begin = Offset(1.0, 0.0);
-                                        const end = Offset.zero;
-                                        const curve = Curves.ease;
-
-                                        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-                                        return SlideTransition(
-                                          position: animation.drive(tween),
-                                          child: child,
-                                        );
-                                      },
-                                    ),
-                                  );
-                                }
                             )
                         ).toList(),
                       )

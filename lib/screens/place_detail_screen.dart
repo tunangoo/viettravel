@@ -6,7 +6,6 @@ import 'package:iconify_flutter/icons/ri.dart';
 import 'package:viettravel/models/place_detail_model.dart';
 import 'package:viettravel/services/api_handle.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:viettravel/widgets/custom_noti.dart';
 
 class PlaceDetailScreen extends StatefulWidget {
   final int placeId;
@@ -145,12 +144,12 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
                               ),
                               Row(
                                 children: [
-                                  Icon(Icons.location_on_outlined),
+                                  Icon(Icons.location_on_outlined, color: Colors.grey),
                                   Text(
                                     place!.address,
                                     style: TextStyle(
                                       fontSize: 16,
-                                      color: Colors.black,
+                                      color: Colors.grey,
                                     ),
                                   ),
                                 ],

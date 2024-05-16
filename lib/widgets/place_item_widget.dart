@@ -1,23 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:viettravel/helpers/navigator_help.dart';
 import 'package:viettravel/models/place_summary_model.dart';
+import 'package:viettravel/screens/place_detail_screen.dart';
 
 class PlaceItemWidget extends StatelessWidget {
   final PlaceSummaryModel place;
-  final VoidCallback onPressed;
 
   const PlaceItemWidget({
     Key? key,
     required this.place,
-    required this.onPressed,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-
     return InkWell(
-      onTap: onPressed,
+      onTap: () {
+        Navigator.push(
+          context,
+          PageRouteBuilder(
+            transitionDuration: Duration(milliseconds: 500),
+            pageBuilder: (context, animation, secondaryAnimation) {
+              return PlaceDetailScreen(placeId: place.placeId);
+            },
+            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+              const begin = Offset(1.0, 0.0);
+              const end = Offset.zero;
+              const curve = Curves.ease;
+
+              var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+              return SlideTransition(
+                position: animation.drive(tween),
+                child: child,
+              );
+            },
+          ),
+        );
+      },
       child: Card(
         elevation: 3,
         margin: EdgeInsets.all(8),
