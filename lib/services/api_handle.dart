@@ -62,3 +62,25 @@ Future<ResponseHandle> updateUserInfo(UserModel user) async {
     );
   }
 }
+
+Future<ResponseHandle> getFavoritePlaces() async {
+  try {
+    final response = await http.get(
+      Uri.parse('$baseApiUrl/favorite/all'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=utf-8',
+        'Authorization': 'Bearer $accessToken',
+      },
+    );
+    // ResponseHandle responseHandle = ResponseHandle.fromHttpResponse(response);
+    return ResponseHandle(
+        statusCode: response.statusCode,
+        body: response.body
+    );
+  } catch (error) {
+    return ResponseHandle(
+      statusCode: 500,
+      message: 'Có lỗi xảy ra',
+    );
+  }
+}

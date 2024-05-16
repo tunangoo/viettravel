@@ -157,7 +157,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
                               Row(
                                 children: [
                                   RatingBarIndicator(
-                                    rating: 4.5, // Số sao bạn muốn hiển thị
+                                    rating: 5.0, // Số sao bạn muốn hiển thị
                                     itemBuilder: (context, index) => Icon(
                                       Icons.star,
                                       color: Colors.amber,

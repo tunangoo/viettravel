@@ -1,24 +1,48 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:viettravel/screens/place_detail_screen.dart';
+import 'package:viettravel/services/api_handle.dart';
+import 'package:viettravel/widgets/place_item_widget.dart';
 
-class FavoriteScreen extends StatelessWidget {
-  final List<Map<String, String>> events = [
-    {"image": 'assets/images/place1.jpg', "title": "Hồ Tây", "date": "8/5", "location": "Hà Nội", "description": "Mô tả"},
-    {"image": 'assets/images/place1.jpg', "title": "Hồ Gươm", "date": "9/5", "location": "Hà Nội", "description": "Mô tả khác"},
-    {"image": 'assets/images/place1.jpg', "title": "Hồ Tây", "date": "8/5", "location": "Hà Nội", "description": "Mô tả"},
-    {"image": 'assets/images/place1.jpg', "title": "Hồ Gươm", "date": "9/5", "location": "Hà Nội", "description": "Mô tả khác"},
-    {"image": 'assets/images/place1.jpg', "title": "Hồ Tây", "date": "8/5", "location": "Hà Nội", "description": "Mô tả"},
-    {"image": 'assets/images/place1.jpg', "title": "Hồ Gươm", "date": "9/5", "location": "Hà Nội", "description": "Mô tả khác"},
-    {"image": 'assets/images/place1.jpg', "title": "Hồ Tây", "date": "8/5", "location": "Hà Nội", "description": "Mô tả"},
-    {"image": 'assets/images/place1.jpg', "title": "Hồ Gươm", "date": "9/5", "location": "Hà Nội", "description": "Mô tả khác"},
-    {"image": 'assets/images/place1.jpg', "title": "Hồ Tây", "date": "8/5", "location": "Hà Nội", "description": "Mô tả"},
-    {"image": 'assets/images/place1.jpg', "title": "Hồ Gươm", "date": "9/5", "location": "Hà Nội", "description": "Mô tả khác"},
-    {"image": 'assets/images/place1.jpg', "title": "Hồ Tây", "date": "8/5", "location": "Hà Nội", "description": "Mô tả"},
-    {"image": 'assets/images/place1.jpg', "title": "Hồ Gươm", "date": "9/5", "location": "Hà Nội", "description": "Mô tả khác"},{"image": 'assets/images/place1.jpg', "title": "Hồ Tây", "date": "8/5", "location": "Hà Nội", "description": "Mô tả"},
-    {"image": 'assets/images/place1.jpg', "title": "Hồ Gươm", "date": "9/5", "location": "Hà Nội", "description": "Mô tả khác"},
-    // Add more event entries here
-  ];
+import '../models/place_summary_model.dart';
+
+class FavoriteScreen extends StatefulWidget {
+  const FavoriteScreen({Key? key}) : super(key: key);
+
+  @override
+  State<FavoriteScreen> createState() => _FavoriteScreenState();
+}
+
+class _FavoriteScreenState extends State<FavoriteScreen> {
+  List<PlaceSummaryModel>? favoritePlaces;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _fetchGetFavoritePlaces();
+  }
+
+  Future<void> _fetchGetFavoritePlaces() async {
+    try {
+      final response = await getFavoritePlaces();
+      if (response.statusCode == 200) {
+        print(response.body);
+        List<dynamic> jsonData = jsonDecode(response.body);
+        setState(() {
+          favoritePlaces = jsonData.map((item) => PlaceSummaryModel.fromJson(item)).toList();
+          print(favoritePlaces![0]);
+        });
+      } else {
+        // Handle error response
+      }
+    } catch (error) {
+      // Handle error
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,74 +65,39 @@ class FavoriteScreen extends StatelessWidget {
                          scrollDirection: Axis.vertical,
                          gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
                            crossAxisCount: 2,
-                           mainAxisExtent: 280,
+                           // mainAxisExtent: 280,
                            crossAxisSpacing: 10,
                            mainAxisSpacing: 10,
-                           childAspectRatio: 1
+                           childAspectRatio: 0.5 // cái này sửa lại cho đúng tỉ lệ của máy pixel 3A API 34
                          ),
-                         children: events.map(
-                               (e) => Card(
-                                 elevation: 3,
-                                 margin: EdgeInsets.all(8),
-                                 shape: RoundedRectangleBorder(
-                                   borderRadius: BorderRadius.circular(16),
-                                   side: BorderSide(color: Colors.lightGreen),
-                                 ),// Khoảng cách giữa các khung
-                                 child: Padding(
-                                   padding: const EdgeInsets.all(8.0),
-                                   child: Column(
-                                     crossAxisAlignment: CrossAxisAlignment.start,
-                                     children: [
-                                       Container(
+                         children: favoritePlaces!.map(
+                               (place) => PlaceItemWidget(
+                                   place: place,
+                                   onPressed: () {
+                                     print(place.placeId);
+                                     Navigator.push(
+                                       context,
+                                       PageRouteBuilder(
+                                         transitionDuration: Duration(milliseconds: 500),
+                                         pageBuilder: (context, animation, secondaryAnimation) {
+                                           return PlaceDetailScreen(placeId: place.placeId);
+                                         },
+                                         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                           const begin = Offset(1.0, 0.0);
+                                           const end = Offset.zero;
+                                           const curve = Curves.ease;
 
-                                         // height: MediaQuery.of(context).size.height,
-                                         child: AspectRatio(
-                                           aspectRatio: 1, // tỉ lệ khung hình vuông
-                                           child: ClipRRect(
-                                             borderRadius: BorderRadius.circular(16),
-                                             child: Image.asset(
-                                               e['image']!,
-                                               width: 1000,
-                                               fit: BoxFit.cover,
-                                             ),
-                                           ),
-                                         ),
+                                           var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+                                           return SlideTransition(
+                                             position: animation.drive(tween),
+                                             child: child,
+                                           );
+                                         },
                                        ),
-                                       SizedBox(height: 10),
-                                       Text(
-                                             e['title']!,
-                                             style: TextStyle(
-                                               fontSize: 15,
-                                               fontWeight: FontWeight.bold,
-                                             ),
-                                           ),
-                                       Row(
-                                         children: [
-                                           Icon(Icons.location_on_outlined, color: Colors.grey,),
-                                           Text(
-                                                 e['location']!,
-                                                 style: TextStyle(
-                                                   fontSize: 12,
-                                                   color: Colors.grey,
-                                                 ),
-                                               ),
-                                         ],
-                                       ),
-                                       Row(
-                                         children: [
-                                           Text(e['date']!),
-                                           Icon(
-                                             Icons.favorite,
-                                             color: Colors.pinkAccent.shade400,
-                                             size: 14,
-                                           ),
-                                         ],
-                                       ),
-                                       Text(e['description']!),
-                                     ],
-                                   ),
-                                 ),
-                               ),
+                                     );
+                                   }
+                               )
                          ).toList(),
                        )
                    ),
