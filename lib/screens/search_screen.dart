@@ -22,6 +22,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(
           "Tìm kiếm",
           style: Theme.of(context).textTheme.headlineMedium,

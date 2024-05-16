@@ -21,7 +21,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _fetchGetFavoritePlaces();
   }
@@ -46,7 +45,13 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Center(child: Text("Địa điểm yêu thích",style: Theme.of(context).textTheme.headlineMedium,)),
+          centerTitle: true,
+          title: Center(
+              child: Text(
+                "Địa điểm yêu thích",
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+          ),
         ),
         body: Container(
           padding: EdgeInsets.only(top: 16.0, left: 8.0, right: 8.0, bottom: 16.0),
@@ -75,7 +80,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             // mainAxisExtent: 280,
                             crossAxisSpacing: 10,
                             mainAxisSpacing: 10,
-                            childAspectRatio: 0.57 // cái này sửa lại cho đúng tỉ lệ của máy pixel 3A API 34
+                            childAspectRatio: 0.57
                         ),
                         children: favoritePlaces.map(
                                 (place) => PlaceItemWidget(

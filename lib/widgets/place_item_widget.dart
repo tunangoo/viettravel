@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:viettravel/helpers/navigator_help.dart';
 import 'package:viettravel/models/place_summary_model.dart';
 import 'package:viettravel/screens/place_detail_screen.dart';
 
