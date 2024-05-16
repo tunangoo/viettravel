@@ -6,6 +6,8 @@ import 'package:viettravel/models/user_model.dart';
 import 'package:viettravel/services/response_handle.dart';
 
 Future<ResponseHandle> getPlaceDetail(int placeId) async {
+  print('get place detail');
+  print(placeId);
   try {
     final response = await http.get(
       Uri.parse('$baseApiUrl/place/detail/$placeId'),
@@ -14,6 +16,7 @@ Future<ResponseHandle> getPlaceDetail(int placeId) async {
         'Authorization': 'Bearer $accessToken',
       },
     );
+    print(response.body);
     ResponseHandle responseHandle = ResponseHandle.fromHttpResponse(response);
     return responseHandle;
   } catch (error) {
@@ -25,6 +28,7 @@ Future<ResponseHandle> getPlaceDetail(int placeId) async {
 }
 
 Future<ResponseHandle> getUserInfo() async {
+  print('get user info');
   try {
     final response = await http.get(
       Uri.parse('$baseApiUrl/user/info'),
@@ -33,6 +37,7 @@ Future<ResponseHandle> getUserInfo() async {
         'Authorization': 'Bearer $accessToken',
       },
     );
+    print(response.body);
     ResponseHandle responseHandle = ResponseHandle.fromHttpResponse(response);
     return responseHandle;
   } catch (error) {
@@ -44,6 +49,8 @@ Future<ResponseHandle> getUserInfo() async {
 }
 
 Future<ResponseHandle> updateUserInfo(UserModel user) async {
+  print('update user info');
+  print(user.toString());
   try {
     final response = await http.patch(
       Uri.parse('$baseApiUrl/user/update_info'),
@@ -53,6 +60,7 @@ Future<ResponseHandle> updateUserInfo(UserModel user) async {
       },
       body: jsonEncode(user.toJson()),
     );
+    print(response.body);
     ResponseHandle responseHandle = ResponseHandle.fromHttpResponse(response);
     return responseHandle;
   } catch (error) {
@@ -64,6 +72,7 @@ Future<ResponseHandle> updateUserInfo(UserModel user) async {
 }
 
 Future<ResponseHandle> getFavoritePlaces() async {
+  print('get favorite places');
   try {
     final response = await http.get(
       Uri.parse('$baseApiUrl/favorite/all'),
@@ -72,11 +81,61 @@ Future<ResponseHandle> getFavoritePlaces() async {
         'Authorization': 'Bearer $accessToken',
       },
     );
-    // ResponseHandle responseHandle = ResponseHandle.fromHttpResponse(response);
+    print(response.body);
     return ResponseHandle(
         statusCode: response.statusCode,
         body: response.body
     );
+  } catch (error) {
+    return ResponseHandle(
+      statusCode: 500,
+      message: 'Có lỗi xảy ra',
+    );
+  }
+}
+
+Future<ResponseHandle> addFavoritePlace(int placeId) async {
+  print('add favorite place');
+  print(placeId);
+  try {
+    final response = await http.post(
+      Uri.parse('$baseApiUrl/favorite/add'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=utf-8',
+        'Authorization': 'Bearer $accessToken',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'place_id': placeId,
+      }),
+    );
+    print(response.body);
+    ResponseHandle responseHandle = ResponseHandle.fromHttpResponse(response);
+    return responseHandle;
+  } catch (error) {
+    return ResponseHandle(
+      statusCode: 500,
+      message: 'Có lỗi xảy ra',
+    );
+  }
+}
+
+Future<ResponseHandle> deleteFavoritePlace(int placeId) async {
+  print('delete favorite place');
+  print(placeId);
+  try {
+    final response = await http.delete(
+      Uri.parse('$baseApiUrl/favorite/delete'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=utf-8',
+        'Authorization': 'Bearer $accessToken',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'place_id': placeId,
+      }),
+    );
+    print(response.body);
+    ResponseHandle responseHandle = ResponseHandle.fromHttpResponse(response);
+    return responseHandle;
   } catch (error) {
     return ResponseHandle(
       statusCode: 500,

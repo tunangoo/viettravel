@@ -1,10 +1,12 @@
-import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:iconify_flutter/iconify_flutter.dart';
+import 'package:iconify_flutter/icons/ri.dart';
 import 'package:viettravel/models/place_detail_model.dart';
 import 'package:viettravel/services/api_handle.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:viettravel/widgets/custom_noti.dart';
 
 class PlaceDetailScreen extends StatefulWidget {
   final int placeId;
@@ -19,24 +21,28 @@ class PlaceDetailScreen extends StatefulWidget {
 }
 
 class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
-  late int _placeId;
-  PlaceDetailModel? _placeDetailModel;
+  late int placeId;
+  PlaceDetailModel? place;
   bool _isLoading = true;
+  bool isFavorite = false;
   // PageController _pageController = PageController();
 
   @override
   void initState() {
     super.initState();
-    _placeId = widget.placeId;
+    placeId = widget.placeId;
     _fetchPlaceDetail();
   }
 
   Future<void> _fetchPlaceDetail() async {
     try {
-      final response = await getPlaceDetail(_placeId);
+      final response = await getPlaceDetail(placeId);
       if (response.statusCode == 200) {
         setState(() {
-          _placeDetailModel = PlaceDetailModel.fromJson(response.body);
+          place = PlaceDetailModel.fromJson(response.body);
+          if(place != null) {
+            isFavorite = place!.favorite;
+          }
           _isLoading = false;
         });
       } else {
@@ -50,6 +56,17 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
         _isLoading = false;
       });
       // Handle error
+    }
+  }
+
+  void _toogleFavorite() {
+    setState(() {
+      isFavorite = !isFavorite;
+    });
+    if(isFavorite) {
+      addFavoritePlace(placeId);
+    } else {
+      deleteFavoritePlace(placeId);
     }
   }
 
@@ -72,22 +89,18 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
           style: Theme.of(context).textTheme.headlineMedium,
         ),
         actions: [
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              'Lưu',
-              style: TextStyle(
-                color: Colors.blue,
-                fontSize: 20.0,
-              ),
-            ),
+          IconButton(
+              icon: isFavorite
+                  ? Iconify(Ri.heart_fill, color: Colors.red)
+                  : Iconify(Ri.heart_line, color: Colors.grey),
+              onPressed: _toogleFavorite,
           ),
         ],
       ),
       body: SafeArea(
         child: _isLoading
             ? Center(child: CircularProgressIndicator())
-            : _placeDetailModel != null
+            : place != null
             ? Stack(
           children: [
             Container(
@@ -100,10 +113,10 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
               //   fit: BoxFit.cover,
               // ),
               child: PageView.builder(
-                itemCount: _placeDetailModel!.images.length,
+                itemCount: place!.images.length,
                 itemBuilder: (context, index) {
                   return Image.network(
-                    _placeDetailModel!.images[index],
+                    place!.images[index],
                     fit: BoxFit.cover,
                   );
                 },
@@ -123,7 +136,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                _placeDetailModel!.name,
+                                place!.name,
                                 style: TextStyle(
                                   fontSize: 27,
                                   fontWeight: FontWeight.bold,
@@ -134,7 +147,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
                                 children: [
                                   Icon(Icons.location_on_outlined),
                                   Text(
-                                    _placeDetailModel!.address,
+                                    place!.address,
                                     style: TextStyle(
                                       fontSize: 16,
                                       color: Colors.black,
@@ -146,7 +159,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
                               Row(
                                 children: [
                                   RatingBarIndicator(
-                                    rating: _placeDetailModel!.rating,
+                                    rating: place!.rating,
                                     itemBuilder: (context, index) => Icon(
                                       Icons.star,
                                       color: Colors.amber,
@@ -156,7 +169,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
                                     direction: Axis.horizontal,
                                   ),
                                   Text(
-                                    _placeDetailModel!.rating.toStringAsFixed(1),
+                                    place!.rating.toStringAsFixed(1),
                                     style: TextStyle(
                                       fontSize: 16,
                                       color: Colors.black,
@@ -165,7 +178,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
                                   Align(
                                     alignment: Alignment.centerRight,
                                     child: Text(
-                                      '   ${_placeDetailModel!.price}₫ / Vé',
+                                      '   ${place!.price}₫/Vé',
                                       style: TextStyle(
                                         fontSize: 16,
                                         color: Colors.orange,
@@ -199,7 +212,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            _placeDetailModel!.description,
+                            place!.description,
                             style: TextStyle(fontSize: 15),
                             textAlign: TextAlign.justify,
                           ),

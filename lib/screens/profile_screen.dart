@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:viettravel/screens/edit_screen.dart';
 import 'package:viettravel/services/api_handle.dart';
@@ -121,7 +119,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             Center(
               child: Text(
-                user.fullName,
+                (user != null) ? user!.fullName : '',
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                   fontSize: 30,
                   color: Colors.black,
@@ -130,7 +128,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             Text(
-              user.email,
+              (user != null) ? user!.email : '',
               style: TextStyle(color: Colors.grey, fontSize: 15),
             ),
             const SizedBox(height: 20),
