@@ -189,3 +189,26 @@ Future<ResponseHandle> getFreePlaces() async {
     );
   }
 }
+
+Future<ResponseHandle> getAllPlaces() async {
+  print('get all places');
+  try {
+    final response = await http.get(
+      Uri.parse('$baseApiUrl/place/all'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=utf-8',
+        'Authorization': 'Bearer $accessToken',
+      },
+    );
+    print(response.body);
+    return ResponseHandle(
+        statusCode: response.statusCode,
+        body: response.body
+    );
+  } catch (error) {
+    return ResponseHandle(
+      statusCode: 500,
+      message: 'Có lỗi xảy ra',
+    );
+  }
+}

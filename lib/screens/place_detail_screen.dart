@@ -84,7 +84,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
           icon: const Icon(Icons.arrow_back),
         ),
         title: Text(
-          "Chi tiết",
+          "Chi tiết địa điểm",
           style: Theme.of(context).textTheme.headlineMedium,
         ),
         actions: [
