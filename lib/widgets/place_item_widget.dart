@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:viettravel/helpers/number_format.dart';
 import 'package:viettravel/models/place_summary_model.dart';
 import 'package:viettravel/screens/place_detail_screen.dart';
 
@@ -107,7 +108,7 @@ class PlaceItemWidget extends StatelessWidget {
               ),
               SizedBox(height: 5,),
               Text(
-                  '${place.price}₫/Vé', // Thêm giá vé
+                  '${convertToVND(place.price)}₫/Vé', // Thêm giá vé
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.blue,

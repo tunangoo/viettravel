@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:viettravel/helpers/number_format.dart';
 import 'package:viettravel/screens/edit_screen.dart';
 import 'package:viettravel/services/api_handle.dart';
 
@@ -137,7 +138,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                         Text(
-                          "360",
+                          "0",
                           style: TextStyle(
                               color: Colors.blue,
                               fontSize: 18,
@@ -158,7 +159,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       children: [
                         Center(
                           child: Text(
-                            'Số chuyến đi',
+                            'Số dư ví',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 18,
@@ -166,36 +167,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                         Text(
-                          "238",
-                          style: TextStyle(
-                              color: Colors.blue,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.only(
-                      top: 12.0,
-                      left: 12.0,
-                    ),
-                    height: 100,
-                    child: Column(
-                      children: [
-                        Center(
-                          child: Text(
-                            'Danh sách',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        Text(
-                          "473",
+                          (user != null) ? '${convertToVND(user!.balance)}₫' : '0₫',
                           style: TextStyle(
                               color: Colors.blue,
                               fontSize: 18,
@@ -208,18 +180,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             ),
             ProfileMenuWidget(
-              title: "Trang cá nhân",
-              icon: Icons.perm_identity,
-              onPress: () {},
-            ),
-            ProfileMenuWidget(
-              title: "Đã đánh dấu",
-              icon: Icons.bookmark_outline,
+              title: "Ví Viettravel",
+              icon: Icons.wallet_outlined,
               onPress: () {},
             ),
             ProfileMenuWidget(
               title: "Vé đã đặt",
-              icon: Icons.card_travel,
+              icon: Icons.confirmation_number_outlined,
               onPress: () {},
             ),
             ProfileMenuWidget(
