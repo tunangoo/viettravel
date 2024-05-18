@@ -4,6 +4,7 @@ class UserModel {
   String email;
   String? address;
   String? avatar;
+  int? balance;
 
   UserModel({
     required this.fullName,
@@ -11,6 +12,7 @@ class UserModel {
     required this.email,
     required this.address,
     this.avatar,
+    required this.balance,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -19,7 +21,8 @@ class UserModel {
       phoneNumber: json['phoneNumber'] ?? '',
       email: json['email'] ?? '',
       address: json['address'] ?? '',
-      avatar: json['avatar'], // avatar có thể null nên không cần kiểm tra
+      avatar: json['avatar'],
+      balance: json['balance'] ?? 0,
     );
   }
 

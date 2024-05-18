@@ -62,6 +62,7 @@ class _EditScreenState extends State<EditScreen> {
                   phoneNumber: _phoneNumberController.text,
                   email: _emailController.text,
                   address: _addressController.text,
+                  balance: widget.user.balance,
               );
               updateUserInfo(
                   updatedUser
