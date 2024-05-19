@@ -139,7 +139,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             ),
             ProfileMenuWidget(
-              title: "Ví Viettravel",
+              title: "Ví VietTravel",
               icon: Icons.wallet_outlined,
               onPress: () {},
             ),
