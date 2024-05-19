@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:viettravel/helpers/number_format.dart';
 import 'package:viettravel/providers/user_provider.dart';
 import 'package:viettravel/screens/edit_screen.dart';
+import 'package:viettravel/screens/login_screen.dart';
 import 'package:viettravel/screens/ticket_screen.dart';
 
 import '../helpers/navigator_help.dart';
@@ -158,6 +159,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               title: "Phiên bản",
               icon: Icons.travel_explore_outlined,
               onPress: () {},
+            ),
+            ProfileMenuWidget(
+              title: "Đăng xuất",
+              icon: Icons.logout_outlined,
+              onPress: () {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => LoginScreen()));
+              },
             ),
           ],
         ),
