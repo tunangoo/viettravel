@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:viettravel/helpers/number_format.dart';
 import 'package:viettravel/models/place_detail_model.dart';
 import 'package:viettravel/providers/favorite_place_provider.dart';
+import 'package:viettravel/providers/user_provider.dart';
 import 'package:viettravel/services/api_handle.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:viettravel/widgets/custom_noti.dart';
@@ -28,6 +29,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
   bool isFavorite = false;
   int _currentValue = 1;
   int _totalPrice = 0;
+  DateTime _selectedDate = DateTime.now();
 
   @override
   void initState() {
@@ -64,17 +66,15 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
 
   void _toogleFavorite() {
     if (!isFavorite) {
-      fetchAddFavoritePlace();
+      _fetchAddFavoritePlace();
     } else {
-      fetchDeleteFavoritePlace();
+      _fetchDeleteFavoritePlace();
     }
   }
 
-  Future<void> fetchAddFavoritePlace() async {
+  Future<void> _fetchAddFavoritePlace() async {
     try {
-      print("check add");
       final response = await addFavoritePlace(placeId);
-      print(response.statusCode);
       if (response.statusCode == 200) {
         setState(() {
           isFavorite = true;
@@ -89,11 +89,9 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
     }
   }
 
-  Future<void> fetchDeleteFavoritePlace() async {
+  Future<void> _fetchDeleteFavoritePlace() async {
     try {
-      print("check delete");
       final response = await deleteFavoritePlace(placeId);
-      print(response.statusCode);
       if (response.statusCode == 200) {
         setState(() {
           isFavorite = false;
@@ -105,6 +103,34 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
       }
     } catch (error) {
       customNotiError(context, "Có lỗi xảy ra");
+    }
+  }
+
+  Future<void> _fetchCreateTicket() async {
+    try {
+      final response = await createTicket(placeId, _selectedDate, _currentValue, _totalPrice);
+      if (response.statusCode == 200) {
+        customNotiSuccess(context, 'Đặt vé thành công');
+        Provider.of<UserProvider>(context, listen: false).fetchUserInfo();
+      } else {
+        customNotiError(context, "Có lỗi xảy ra");
+      }
+    } catch (error) {
+      customNotiError(context, "Có lỗi xảy ra");
+    }
+  }
+
+  Future<void> _selectDate(BuildContext context, StateSetter setState) async {
+    final DateTime? newDate = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate,
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2100),
+    );
+    if (newDate != null) {
+      setState(() {
+        _selectedDate = newDate;
+      });
     }
   }
 
@@ -289,7 +315,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
                     builder: (BuildContext context, StateSetter setState) {
                       return Container(
                         width: double.infinity,
-                        height: 180,
+                        height: 240,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
@@ -297,7 +323,42 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Text(
-                                  ' Số lượng',
+                                  'Ngày thăm quan',
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      '${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}  ',
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                    ElevatedButton(
+                                      // style: ButtonStyle(
+                                      //   backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+                                      //         (Set<MaterialState> states) {
+                                      //       return Colors.white;
+                                      //     },
+                                      //   ),
+                                      //   fixedSize: MaterialStateProperty.all<Size>(
+                                      //     Size(0, 0),
+                                      //   ),
+                                      // ),
+                                      onPressed: () => _selectDate(context, setState),
+                                      child: Icon(
+                                        Icons.calendar_month_outlined,
+                                        color: Colors.blue,
+                                        size: 25,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(
+                                  ' Số lượng vé',
                                   style: TextStyle(fontSize: 20),
                                 ),
                                 Row(
@@ -330,6 +391,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
                                 ),
                               ],
                             ),
+                            SizedBox(height: 10,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
@@ -356,7 +418,51 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
                                 ),
                               ),
                               onPressed: () {
-                                // if()
+                                int? balance = Provider.of<UserProvider>(context, listen: false).user.balance;
+                                if(balance != null) {
+                                  if(balance < _totalPrice) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text('Số dư trong ví không đủ'),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context); // Đóng dialog
+                                              },
+                                              child: Text('Xác nhận'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  } else {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text('Bạn có chắc chắn muốn đặt vé không?'),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text('Hủy'),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                _fetchCreateTicket();
+                                              },
+                                              child: Text('Xác nhận'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  }
+                                }
                               },
                               child: Text(
                                 'Thanh toán',
