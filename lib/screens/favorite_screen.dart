@@ -1,11 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:viettravel/providers/favorite_place_provider.dart';
-import 'package:viettravel/services/api_handle.dart';
 import 'package:viettravel/widgets/place_item_widget.dart';
 
 import '../models/place_summary_model.dart';

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:viettravel/helpers/app_constant.dart';
+import 'package:viettravel/helpers/number_format.dart';
 import 'package:viettravel/models/user_model.dart';
 import 'package:viettravel/services/response_handle.dart';
 
@@ -145,7 +146,7 @@ Future<ResponseHandle> deleteFavoritePlace(int placeId) async {
 }
 
 Future<ResponseHandle> getRecommendPlaces() async {
-  print('get favorite places');
+  print('get recommend places');
   try {
     final response = await http.get(
       Uri.parse('$baseApiUrl/place/recommend'),
@@ -200,6 +201,59 @@ Future<ResponseHandle> getAllPlaces() async {
         'Authorization': 'Bearer $accessToken',
       },
     );
+    print(response.body);
+    return ResponseHandle(
+        statusCode: response.statusCode,
+        body: response.body
+    );
+  } catch (error) {
+    return ResponseHandle(
+      statusCode: 500,
+      message: 'Có lỗi xảy ra',
+    );
+  }
+}
+
+Future<ResponseHandle> createTicket(int placeId, DateTime entryTime, int quantity, int totalAmount) async {
+  print('create ticket');
+  try {
+    final response = await http.post(
+      Uri.parse('$baseApiUrl/ticket/create'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=utf-8',
+        'Authorization': 'Bearer $accessToken',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'place_id': placeId,
+        'entryTime': convertDateTimeFormat(entryTime),
+        'quantity': quantity,
+        'totalAmount': totalAmount,
+      }),
+    );
+    print(response.body);
+    return ResponseHandle(
+        statusCode: response.statusCode,
+        body: response.body
+    );
+  } catch (error) {
+    return ResponseHandle(
+      statusCode: 500,
+      message: 'Có lỗi xảy ra',
+    );
+  }
+}
+
+Future<ResponseHandle> getAllTickets() async {
+  print('get all tickets');
+  try {
+    final response = await http.get(
+      Uri.parse('$baseApiUrl/ticket/all'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=utf-8',
+        'Authorization': 'Bearer $accessToken',
+      },
+    );
+    print("tickets:");
     print(response.body);
     return ResponseHandle(
         statusCode: response.statusCode,

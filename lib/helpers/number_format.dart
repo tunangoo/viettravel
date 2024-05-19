@@ -14,3 +14,19 @@ String convertToVND(int price) {
   }
   return formatString;
 }
+
+String convertDateTimeFormat(DateTime time) {
+  String result = '';
+  result += time.year.toString();
+  result += '-';
+  if(time.month < 10) {
+    result += '0';
+  }
+  result += time.month.toString();
+  result += '-';
+  if(time.day < 10) {
+    result += '0';
+  }
+  result += time.day.toString();
+  return result;
+}
