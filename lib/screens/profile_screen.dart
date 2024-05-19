@@ -67,33 +67,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               );
             },
             icon: Icon(Icons.border_color_outlined, color: Colors.lightBlue),
-          )
+          ),
         ],
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Center(
-            //   child: SizedBox(
-            //     width: 110,
-            //     height: 110,
-            //     child: ClipOval(
-            //       child: widget.user.avatar != null
-            //           ? Image.network(
-            //         widget.user.avatar!,
-            //         height: double.infinity,
-            //         width: double.infinity,
-            //         fit: BoxFit.cover,
-            //       )
-            //           : Image.asset(
-            //         "assets/images/profile.png",
-            //         height: double.infinity,
-            //         width: double.infinity,
-            //         fit: BoxFit.cover,
-            //       ),
-            //     ),
-            //   ),
-            // ),
             Container(
               height: screenHeight * 0.2,
               width: screenWidth,

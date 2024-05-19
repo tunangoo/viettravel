@@ -50,34 +50,41 @@ class _EditScreenState extends State<EditScreen> {
           icon: const Icon(Icons.arrow_back),
         ),
         title: Text(
-          "Thông tin cá nhân",
+          "Cá nhân",
           style: Theme.of(context).textTheme.headlineMedium,
         ),
         actions: [
           TextButton(
             onPressed: () {
-              //call api cập nhật thông tin
-              UserModel updatedUser = UserModel(
+              if(_fullNameController.text.isNotEmpty
+                  && _phoneNumberController.text.isNotEmpty
+                  && _emailController.text.isNotEmpty
+                  && _addressController.text.isNotEmpty) {
+                FocusScope.of(context).unfocus();
+                UserModel updatedUser = UserModel(
                   fullName: _fullNameController.text,
                   phoneNumber: _phoneNumberController.text,
                   email: _emailController.text,
                   address: _addressController.text,
                   balance: widget.user.balance,
-              );
-              updateUserInfo(
-                  updatedUser
-              ).then((response) {
-                if (response.statusCode == 200) {
-                  widget.user.fullName = _fullNameController.text;
-                  widget.user.phoneNumber = _phoneNumberController.text;
-                  widget.user.email = _emailController.text;
-                  widget.user.address = _addressController.text;
-                  widget.updateUser(widget.user);
-                  customNotiSuccess(context, response.message);
-                } else {
-                  customNotiError(context, response.message);
-                }
-              });
+                );
+                updateUserInfo(
+                    updatedUser
+                ).then((response) {
+                  if (response.statusCode == 200) {
+                    widget.user.fullName = _fullNameController.text;
+                    widget.user.phoneNumber = _phoneNumberController.text;
+                    widget.user.email = _emailController.text;
+                    widget.user.address = _addressController.text;
+                    widget.updateUser(widget.user);
+                    customNotiSuccess(context, response.message);
+                  } else {
+                    customNotiError(context, response.message);
+                  }
+                });
+              } else {
+                customNotiError(context, 'Các trường thông tin không được bỏ trống');
+              }
             },
             child: Text(
               'Cập nhật',
@@ -100,30 +107,6 @@ class _EditScreenState extends State<EditScreen> {
                 fit: BoxFit.fitHeight,
               ),
             ),
-            // Center(
-            //   child: SizedBox(
-            //     width: screenWidth*0.3,
-            //     height: screenHeight,
-            //     child: ClipOval(
-            //       child: Image.asset(
-            //         "assets/images/profile.png",
-            //         height: double.infinity,
-            //         width: double.infinity,
-            //         fit: BoxFit.cover,
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            // Center(
-            //   child: Text(
-            //     "Your Name",
-            //     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-            //       fontSize: 30, // Override specific properties if needed
-            //       color: Colors.black,
-            //       fontWeight: FontWeight.bold,
-            //     ),
-            //   ),
-            // ),
             Align(
               alignment: Alignment.center,
               child: TextButton(
@@ -207,7 +190,7 @@ class _EditScreenState extends State<EditScreen> {
                 child: CustomTextField(
                   hintText: 'Số điện thoại',
                   controller: _phoneNumberController,
-                  keyboardType: TextInputType.text,
+                  keyboardType: TextInputType.number,
                 ),
               ),
             ),
