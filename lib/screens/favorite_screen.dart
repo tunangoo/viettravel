@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
+import 'package:viettravel/providers/favorite_place_provider.dart';
 import 'package:viettravel/services/api_handle.dart';
 import 'package:viettravel/widgets/place_item_widget.dart';
 
@@ -16,32 +18,16 @@ class FavoriteScreen extends StatefulWidget {
 }
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
-  List<PlaceSummaryModel> favoritePlaces = [];
 
   @override
   void initState() {
     super.initState();
-    _fetchGetFavoritePlaces();
-  }
-
-  Future<void> _fetchGetFavoritePlaces() async {
-    try {
-      final response = await getFavoritePlaces();
-      if (response.statusCode == 200) {
-        List<dynamic> jsonData = jsonDecode(response.body);
-        setState(() {
-          favoritePlaces = jsonData.map((item) => PlaceSummaryModel.fromJson(item)).toList();
-        });
-      } else {
-        // Handle error response
-      }
-    } catch (error) {
-      // Handle error
-    }
   }
 
   @override
   Widget build(BuildContext context) {
+    List<PlaceSummaryModel> favoritePlaces = Provider.of<FavoritePlaceProvider>(context, listen: true).favoritePlace;
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/ri.dart';
+import 'package:viettravel/providers/favorite_place_provider.dart';
+import 'package:viettravel/providers/user_provider.dart';
 import 'package:viettravel/screens/favorite_screen.dart';
 import 'package:viettravel/screens/home_screen.dart';
 import 'package:viettravel/screens/profile_screen.dart';
@@ -10,10 +13,18 @@ import 'package:viettravel/screens/login_screen.dart';
 import 'package:viettravel/helpers/app_constant.dart';
 
 void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: MyApp(),
-  ));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => FavoritePlaceProvider()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: MyApp(),
+      ),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -33,6 +44,8 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    Provider.of<UserProvider>(context, listen: false).fetchUserInfo();
+    Provider.of<FavoritePlaceProvider>(context, listen: false).fetchGetFavoritePlaces();
   }
 
   @override
