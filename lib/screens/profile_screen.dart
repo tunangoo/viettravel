@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:viettravel/helpers/number_format.dart';
 import 'package:viettravel/providers/user_provider.dart';
 import 'package:viettravel/screens/edit_screen.dart';
+import 'package:viettravel/screens/ticket_screen.dart';
 
 import '../helpers/navigator_help.dart';
 import '../widgets/profile_menu_widget.dart';
@@ -144,7 +145,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ProfileMenuWidget(
               title: "Vé đã đặt",
               icon: Icons.confirmation_number_outlined,
-              onPress: () {},
+              onPress: () {
+                navigatorPush(context, TicketScreen());
+              },
             ),
             ProfileMenuWidget(
               title: "Cài đặt",

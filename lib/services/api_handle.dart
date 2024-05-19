@@ -146,7 +146,7 @@ Future<ResponseHandle> deleteFavoritePlace(int placeId) async {
 }
 
 Future<ResponseHandle> getRecommendPlaces() async {
-  print('get favorite places');
+  print('get recommend places');
   try {
     final response = await http.get(
       Uri.parse('$baseApiUrl/place/recommend'),
@@ -243,25 +243,26 @@ Future<ResponseHandle> createTicket(int placeId, DateTime entryTime, int quantit
   }
 }
 
-// Future<ResponseHandle> getAllTickets() async {
-//   print('get all tickets');
-//   try {
-//     final response = await http.get(
-//       Uri.parse('$baseApiUrl/ticket/all'),
-//       headers: <String, String>{
-//         'Content-Type': 'application/json; charset=utf-8',
-//         'Authorization': 'Bearer $accessToken',
-//       },
-//     );
-//     print(response.body);
-//     return ResponseHandle(
-//         statusCode: response.statusCode,
-//         body: response.body
-//     );
-//   } catch (error) {
-//     return ResponseHandle(
-//       statusCode: 500,
-//       message: 'Có lỗi xảy ra',
-//     );
-//   }
-// }
+Future<ResponseHandle> getAllTickets() async {
+  print('get all tickets');
+  try {
+    final response = await http.get(
+      Uri.parse('$baseApiUrl/ticket/all'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=utf-8',
+        'Authorization': 'Bearer $accessToken',
+      },
+    );
+    print("tickets:");
+    print(response.body);
+    return ResponseHandle(
+        statusCode: response.statusCode,
+        body: response.body
+    );
+  } catch (error) {
+    return ResponseHandle(
+      statusCode: 500,
+      message: 'Có lỗi xảy ra',
+    );
+  }
+}

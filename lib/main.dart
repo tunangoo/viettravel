@@ -4,6 +4,7 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/ri.dart';
 import 'package:viettravel/providers/favorite_place_provider.dart';
+import 'package:viettravel/providers/ticket_provider.dart';
 import 'package:viettravel/providers/user_provider.dart';
 import 'package:viettravel/screens/favorite_screen.dart';
 import 'package:viettravel/screens/home_screen.dart';
@@ -18,10 +19,11 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => FavoritePlaceProvider()),
+        ChangeNotifierProvider(create: (_) => TicketProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: MyApp(),
+        home: LoginScreen(),
       ),
     ),
   );
@@ -46,6 +48,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     Provider.of<UserProvider>(context, listen: false).fetchUserInfo();
     Provider.of<FavoritePlaceProvider>(context, listen: false).fetchGetFavoritePlaces();
+    Provider.of<TicketProvider>(context, listen: false).fetchGetTickets();
   }
 
   @override

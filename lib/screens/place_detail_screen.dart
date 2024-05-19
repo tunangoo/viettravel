@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:viettravel/helpers/number_format.dart';
 import 'package:viettravel/models/place_detail_model.dart';
 import 'package:viettravel/providers/favorite_place_provider.dart';
+import 'package:viettravel/providers/ticket_provider.dart';
 import 'package:viettravel/providers/user_provider.dart';
 import 'package:viettravel/services/api_handle.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -112,6 +113,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
       if (response.statusCode == 200) {
         customNotiSuccess(context, 'Đặt vé thành công');
         Provider.of<UserProvider>(context, listen: false).fetchUserInfo();
+        Provider.of<TicketProvider>(context, listen: false).fetchGetTickets();
       } else {
         customNotiError(context, "Có lỗi xảy ra");
       }
