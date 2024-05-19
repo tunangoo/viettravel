@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/ri.dart';
+import 'package:provider/provider.dart';
 import 'package:viettravel/helpers/number_format.dart';
 import 'package:viettravel/models/place_detail_model.dart';
+import 'package:viettravel/providers/favorite_place_provider.dart';
 import 'package:viettravel/services/api_handle.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:viettravel/widgets/custom_noti.dart';
 
 class PlaceDetailScreen extends StatefulWidget {
   final int placeId;
@@ -60,15 +63,51 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
   }
 
   void _toogleFavorite() {
-    setState(() {
-      isFavorite = !isFavorite;
-    });
-    if (isFavorite) {
-      addFavoritePlace(placeId);
+    if (!isFavorite) {
+      fetchAddFavoritePlace();
     } else {
-      deleteFavoritePlace(placeId);
+      fetchDeleteFavoritePlace();
     }
   }
+
+  Future<void> fetchAddFavoritePlace() async {
+    try {
+      print("check add");
+      final response = await addFavoritePlace(placeId);
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        setState(() {
+          isFavorite = true;
+        });
+        customNotiSuccess(context, "Đã thêm vào yêu thích");
+        Provider.of<FavoritePlaceProvider>(context, listen: false).fetchGetFavoritePlaces();
+      } else {
+        customNotiError(context, "Có lỗi xảy ra");
+      }
+    } catch (error) {
+      customNotiError(context, "Có lỗi xảy ra");
+    }
+  }
+
+  Future<void> fetchDeleteFavoritePlace() async {
+    try {
+      print("check delete");
+      final response = await deleteFavoritePlace(placeId);
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        setState(() {
+          isFavorite = false;
+        });
+        customNotiSuccess(context, "Đã xóa khỏi yêu thích");
+        Provider.of<FavoritePlaceProvider>(context, listen: false).fetchGetFavoritePlaces();
+      } else {
+        customNotiError(context, "Có lỗi xảy ra");
+      }
+    } catch (error) {
+      customNotiError(context, "Có lỗi xảy ra");
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
