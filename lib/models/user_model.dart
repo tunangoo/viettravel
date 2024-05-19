@@ -34,4 +34,12 @@ class UserModel {
       'address': address,
     };
   }
+
+  void updateUserInfo(String fullName, String phoneNumber, String email, String address) {
+    this.fullName = fullName;
+    this.phoneNumber = phoneNumber;
+    this.email = email;
+    this.address = address;
+  }
+
 }

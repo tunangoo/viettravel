@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:viettravel/helpers/number_format.dart';
+import 'package:viettravel/providers/user_provider.dart';
 import 'package:viettravel/screens/edit_screen.dart';
-import 'package:viettravel/services/api_handle.dart';
 
 import '../helpers/navigator_help.dart';
-import '../models/user_model.dart';
 import '../widgets/profile_menu_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -17,39 +17,17 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  var user;
 
   @override
   void initState() {
     super.initState();
-    _fetchGetUserInfo();
-  }
-
-  Future<void> _fetchGetUserInfo() async {
-    try {
-      final response = await getUserInfo();
-      if (response.statusCode == 200) {
-        setState(() {
-          user = UserModel.fromJson(response.body);
-        });
-      } else {
-        // Handle error response
-      }
-    } catch (error) {
-      // Handle error
-    }
-  }
-
-  void _updateUser(UserModel updatedUser) {
-    setState(() {
-      user = updatedUser;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+    var user = Provider.of<UserProvider>(context).user;
 
     return Scaffold(
       appBar: AppBar(
@@ -63,7 +41,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             onPressed: () {
               navigatorPush(
                 context,
-                EditScreen(user: user, updateUser: _updateUser),
+                EditScreen(),
               );
             },
             icon: Icon(Icons.border_color_outlined, color: Colors.lightBlue),
@@ -83,7 +61,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             Center(
               child: Text(
-                (user != null) ? user!.fullName : '',
+                user.fullName,
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                   fontSize: 30,
                   color: Colors.black,
@@ -92,7 +70,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             Text(
-              (user != null) ? user!.email : '',
+              user.email,
               style: TextStyle(color: Colors.grey, fontSize: 15),
             ),
             const SizedBox(height: 20),
@@ -146,7 +124,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                         Text(
-                          (user != null) ? '${convertToVND(user!.balance)}₫' : '0₫',
+                          '${convertToVND(user.balance ?? 0)}₫',
                           style: TextStyle(
                               color: Colors.blue,
                               fontSize: 18,

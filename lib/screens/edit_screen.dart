@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:viettravel/providers/user_provider.dart';
 import 'package:viettravel/services/api_handle.dart';
 import 'package:viettravel/widgets/custom_text_field.dart';
 import '../models/user_model.dart';
 import 'package:viettravel/widgets/custom_noti.dart';
 
 class EditScreen extends StatefulWidget {
-  final UserModel user;
-  final Function(UserModel) updateUser;
-
   const EditScreen({
     Key? key,
-    required this.user,
-    required this.updateUser,
   }) : super(key: key);
 
   @override
@@ -27,12 +24,12 @@ class _EditScreenState extends State<EditScreen> {
   @override
   initState() {
     super.initState();
-    setState(() {
-      _fullNameController.text = widget.user.fullName;
-      _emailController.text = widget.user.email;
-      _phoneNumberController.text = widget.user.phoneNumber ?? "";
-      _addressController.text = widget.user.address ?? "";
-    });
+    final user = Provider.of<UserProvider>(context, listen: false).user;
+
+    _fullNameController.text = user.fullName;
+    _emailController.text = user.email;
+    _phoneNumberController.text = user.phoneNumber ?? "";
+    _addressController.text = user.address ?? "";
   }
 
   @override
@@ -60,23 +57,18 @@ class _EditScreenState extends State<EditScreen> {
                   && _phoneNumberController.text.isNotEmpty
                   && _emailController.text.isNotEmpty
                   && _addressController.text.isNotEmpty) {
-                FocusScope.of(context).unfocus();
-                UserModel updatedUser = UserModel(
-                  fullName: _fullNameController.text,
-                  phoneNumber: _phoneNumberController.text,
-                  email: _emailController.text,
-                  address: _addressController.text,
-                  balance: widget.user.balance,
+                UserModel updatedUser = Provider.of<UserProvider>(context, listen: false).user;
+                updatedUser.updateUserInfo(
+                  _fullNameController.text,
+                  _phoneNumberController.text,
+                  _emailController.text,
+                  _addressController.text,
                 );
                 updateUserInfo(
                     updatedUser
                 ).then((response) {
                   if (response.statusCode == 200) {
-                    widget.user.fullName = _fullNameController.text;
-                    widget.user.phoneNumber = _phoneNumberController.text;
-                    widget.user.email = _emailController.text;
-                    widget.user.address = _addressController.text;
-                    widget.updateUser(widget.user);
+                    Provider.of<UserProvider>(context, listen: false).fetchUserInfo();
                     customNotiSuccess(context, response.message);
                   } else {
                     customNotiError(context, response.message);
@@ -85,6 +77,7 @@ class _EditScreenState extends State<EditScreen> {
               } else {
                 customNotiError(context, 'Các trường thông tin không được bỏ trống');
               }
+              FocusScope.of(context).unfocus();
             },
             child: Text(
               'Cập nhật',

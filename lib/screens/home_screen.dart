@@ -1,12 +1,13 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:viettravel/providers/user_provider.dart';
 import 'package:viettravel/screens/free_place_screen.dart';
 import 'package:viettravel/screens/recommend_place_screen.dart';
 import 'package:viettravel/widgets/place_item_widget.dart';
 import '../helpers/navigator_help.dart';
 import '../models/place_summary_model.dart';
-import '../models/user_model.dart';
 import 'package:viettravel/services/api_handle.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,31 +20,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var user;
   List<PlaceSummaryModel> recommendPlaces = [];
   List<PlaceSummaryModel> freePlaces = [];
 
   @override
   void initState() {
     super.initState();
-    _fetchGetUserInfo();
     _fetchGetRecommendPlaces();
     _fetchGetFreePlaces();
-  }
-
-  Future<void> _fetchGetUserInfo() async {
-    try {
-      final response = await getUserInfo();
-      if (response.statusCode == 200) {
-        setState(() {
-          user = UserModel.fromJson(response.body);
-        });
-      } else {
-        // Handle error response
-      }
-    } catch (error) {
-      // Handle error
-    }
   }
 
   Future<void> _fetchGetRecommendPlaces() async {
@@ -81,6 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    var user = Provider.of<UserProvider>(context, listen: true).user;
 
     return Scaffold(
       appBar: AppBar(
@@ -107,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(width: 10,),
                     Center(
                       child: Text(
-                        (user != null) ? user!.fullName : 'Người dùng',
+                        user.fullName,
                         style: TextStyle(fontSize: 17),
                       ),
                     ),
