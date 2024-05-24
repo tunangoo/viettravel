@@ -6,10 +6,21 @@
 - Framework: Flutter
 
 ## Giao diện của App:
-- Đăng nhập ![image](screenshots/log_in.jpg) { width: 200px; }
-- Đăng ký ![image](screenshots/sign_up.jpg) { width: 200px; }
-- Trang chủ ![image](screenshots/home.jpg)
-- Tìm kiếm ![image](screenshots/search_place.jpg)
-- Địa điểm yêu thích ![image](screenshots/favorite_places.jpg)
-- Cá nhân ![image](screenshots/profile.jpg)
-- Chỉnh sửa thông tin cá nhân ![image](screenshots/edit_profile.jpg)
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1%;">
+    <img src="./screenshots/log_in.jpg" alt="Đăng nhập" style="width: 24%;">
+    <img src="./screenshots/sign_up.jpg" alt="Đăng ký" style="width: 24%;">
+    <img src="./screenshots/forgot_password.jpg" alt="Quên mật khẩu" style="width: 24%;">
+    <img src="./screenshots/home.jpg" alt="Trang chủ" style="width: 24%;">
+    <img src="./screenshots/recommended_places.jpg" alt="Địa điểm gợi ý" style="width: 24%;">
+    <img src="./screenshots/free_places.jpg" alt="Điểm điểm miễn phí" style="width: 24%;">
+    <img src="./screenshots/search_place.jpg" alt="Tìm kiếm" style="width: 24%;">
+    <img src="./screenshots/search_place_1.jpg" alt="Tìm kiếm" style="width: 24%;">
+    <img src="./screenshots/search_place_2.jpg" alt="Tìm kiếm" style="width: 24%;">
+    <img src="./screenshots/favorite_places.jpg" alt="Địa điểm yêu thích" style="width: 24%;">
+    <img src="./screenshots/profile.jpg" alt="Cá nhân" style="width: 24%;">
+    <img src="./screenshots/edit_profile.jpg" alt="Chỉnh sửa thông tin cá nhân" style="width: 24%;">
+    <img src="./screenshots/ticket_list.jpg" alt="Các vé đã đặt" style="width: 24%;">
+    <img src="./screenshots/place_detail.jpg" alt="Chi tiết địa điểm" style="width: 24%;">
+    <img src="./screenshots/place_detail_1.jpg" alt="Chi tiết địa điểm" style="width: 24%;">
+    <img src="./screenshots/place_detail_2.jpg" alt="Chi tiết địa điểm" style="width: 24%;">
+</div>
